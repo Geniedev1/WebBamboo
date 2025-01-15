@@ -1,0 +1,155 @@
+/* Container chính */
+.container {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .text-center {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .input-group {
+    margin-bottom: 20px;
+  }
+  
+  .input-group .form-control {
+    border-radius: 5px 0 0 5px;
+  }
+  
+  .input-group .btn {
+    border-radius: 0 5px 5px 0;
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .input-group .btn:hover {
+    background-color: #0056b3;
+  }
+  
+  .card-deck {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+  }
+  
+  .movie-card {
+    flex: 0 0 calc(33.333% - 20px); /* Chia thành 3 cột */
+    max-width: calc(33.333% - 20px);
+  }
+  
+  .card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  }
+  
+  .card-img-top {
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .card-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 15px 0;
+    text-align: center;
+  }
+  
+  .card-text {
+    margin: 10px 0;
+    font-size: 1rem;
+    color: #555;
+  }
+  
+  .card .btn-primary {
+    margin-top: 10px;
+    display: block;
+    width: 100%;
+    background-color: #007bff;
+    border: none;
+    font-size: 1rem;
+  }
+  
+  .card .btn-primary:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Chi tiết suất chiếu */
+  .show-details {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .show-details p {
+    margin: 5px 0;
+    font-size: 0.9rem;
+  }
+  
+  .show-details .btn-success {
+    margin-top: 10px;
+    font-size: 0.9rem;
+    display: block;
+    width: 100%;
+  }
+  
+  .show-details .btn-success:hover {
+    background-color: #28a745;
+    border-color: #1e7e34;
+  }
+  .show-details {
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #f5f5f5;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  }
+  
+  .show-details:hover {
+    transform: scale(1.02);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  }
+  
+  .show-details p {
+    margin: 5px 0;
+    font-size: 0.9rem;
+    color: #333;
+  }
+  
+  .show-details strong {
+    font-weight: bold;
+    color: #555;
+  }
+  
+  /* Nút đặt vé */
+  .show-details .btn-success {
+    margin-top: 10px;
+    background-color: #28a745;
+    border: none;
+    font-size: 0.9rem;
+    padding: 8px 16px;
+    border-radius: 5px;
+    color: #fff;
+    transition: background-color 0.3s ease, box-shadow 0.2s ease;
+  }
+  
+  .show-details .btn-success:hover {
+    background-color: #218838;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+  }

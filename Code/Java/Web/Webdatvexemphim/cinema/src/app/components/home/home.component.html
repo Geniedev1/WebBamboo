@@ -1,0 +1,21 @@
+<!-- home-dashboard.component.html -->
+<app-header></app-header>
+<div class="background-container">
+  <h1 class="outlined-heading">Welcome Cinema</h1> <!-- Dòng chữ "Welcome Cinema" ở giữa -->
+
+  <!-- Các nút điều hướng -->
+  <div class="button-container">
+    <div class="text-center">
+      <button class="btn btn-success" routerLink="/user-login">Login</button>
+    </div>
+
+    <div class="text-center">
+      <button class="btn btn-info" routerLink="/user-registration">Registration</button>
+    </div>
+  </div>
+
+  <!-- Nút Quản lý ở góc trên trái -->
+  <div class="manage-button">
+    <button routerLink="/admin-login">Admin</button>
+  </div>
+</div>

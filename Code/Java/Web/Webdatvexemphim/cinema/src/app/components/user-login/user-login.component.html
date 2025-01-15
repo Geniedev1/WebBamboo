@@ -1,0 +1,28 @@
+<app-header></app-header>
+<div class="container col-md-5 mt-5 mb-3">
+    <h2 class="text-primary text-center mb-4">User</h2>
+  
+    <form class="login-form" (ngSubmit)="login()">
+      <div class="form-group">
+        <label for="username" class="font-weight-bold">Account:</label>
+        <input type="text" id="username" name="username" class="form-control input-field" [(ngModel)]="username" placeholder="Enter your username" required>
+      </div>
+  
+      <div class="form-group">
+        <label for="password" class="font-weight-bold">Password:</label>
+        <input type="password" id="password" name="password" class="form-control input-field" [(ngModel)]="password" placeholder="Enter your password" required>
+      </div>
+  
+      <button type="submit" class="btn btn-primary btn-block mt-3">Login</button>
+    </form>
+
+    <div class="text-center">
+      <a href="#" (click)="showForgotPasswordForm($event)" class="forgot-password-link">Fogot Password?</a>
+    </div>
+
+    <div *ngIf="showForgotPassword" class="forgot-password mt-3">
+      <h5 class="forgot-password-heading">Reset Password</h5>
+      <input type="email" [(ngModel)]="forgotPasswordEmail" placeholder="Enter your email" class="form-control mb-2">
+      <button class="btn btn-primary btn-block" (click)="forgotPassword()">Send Reset Email</button>
+    </div>
+</div>

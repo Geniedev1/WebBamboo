@@ -1,0 +1,43 @@
+<!-- user-theatres.component.html -->
+<div class="container">
+  <h2 class="text-center">Theatres</h2>
+
+  <!-- Search Bar for Theatres -->
+  <!-- Search Bar -->
+  <div class="input-group mb-3">
+    <input type="text" class="form-control" placeholder="Search Movies" [(ngModel)]="theatreSearch" (input)="filterTheatres()">
+    <div class="input-group-append">
+      <button class="btn btn-outline-secondary" type="button" (click)="clearSearch()">Clear</button>
+    </div>
+  </div>
+
+  <div class="row">
+    <div *ngFor="let theatre of filteredTheatres" class="col-md-5 mb-3">
+      <div class="card" style="background-color: rgb(228, 215, 199);">
+        <div class="card-body">
+          <h3 class="card-title">{{ theatre.name }}</h3>
+          <h5 class="card-title">{{ theatre.location }}</h5>
+
+          <!-- Toggle Button for Show Details -->
+          <button class="btn btn-primary" (click)="theatre.showVisible = !theatre.showVisible">Shows</button>
+
+          <!-- Display Shows -->
+          <div *ngIf="theatre.showVisible">
+            <div *ngFor="let show of getShowsForTheatre(theatre)" class="show-details">
+              <div style="border-radius: 8px; background-color: rgb(171, 237, 237);">
+                <p><strong>Movie Name:</strong> {{ show.movieName }}</p>
+                <p><strong>Show Name:</strong> {{ show.showName }}</p>
+                <p><strong>Show Date Time:</strong> {{ show.showDateTime| date: 'medium' }}</p>
+
+                <!-- Add more show details if needed -->
+
+                <button class="btn btn-success" (click)="bookTicket(show.id)">Book Ticket</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<router-outlet></router-outlet>

@@ -1,0 +1,59 @@
+<!-- admin-shows.component.html -->
+<div class="container">
+  <h2 class="text-primary text-center">All Shows</h2>
+
+  <!-- Add Show Button -->
+  <button class="btn btn-success mb-3" (click)="showAddShowForm = !showAddShowForm">Add Show</button>
+
+  <!-- Add Show Form -->
+  <div *ngIf="showAddShowForm">
+    <form (ngSubmit)="addShow()">
+      <div class="form-group">
+        <label for="showName">Show Name:</label>
+        <input type="text" id="showName" name="showName" class="form-control" [(ngModel)]="newShow.showName"
+          placeholder="Enter the show name" required>
+      </div>
+      <div class="form-group">
+        <label for="showDateTime">Show Date and Time:</label>
+        <input type="datetime-local" id="showDateTime" name="showDateTime" class="form-control"
+        [(ngModel)]="newShow.showDateTime" [min]="minDateTime" required>
+      </div>
+      <div class="form-group">
+        <label for="theatreName">Theatre Name:</label>
+        <!-- Displaying theaters in a dropdown -->
+        <select id="theatreName" name="theatreName" class="form-control" [(ngModel)]="newShow.theatreName" required>
+          <option *ngFor="let theatre of theatres" [value]="theatre.name">{{ theatre.name }}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="movieName">Movie Name:</label>
+        <!-- Displaying movies in a dropdown -->
+        <select id="movieName" name="movieName" class="form-control" [(ngModel)]="newShow.movieName" required>
+          <option *ngFor="let movie of movies" [value]="movie.title">{{ movie.title }}</option>
+        </select>
+      </div>
+      <!-- Add other form fields as needed -->
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+
+  <!-- Display Shows -->
+  <div *ngIf="shows.length > 0 else noShowsMessage">
+    <div *ngFor="let show of shows" class="card mb-3">
+      <div class="card-body" style="background-color: rgb(215, 228, 212)">
+        <h5 class="card-title">{{ show.showName }}</h5>
+        <p class="card-text">Date and Time: {{ show.showDateTime | date: 'medium' }}</p>
+        <p class="card-text">Theatre: {{ show.theatreName }}</p>
+        <p class="card-text">Movie: {{ show.movieName }}</p>
+        <p class="card-text"><strong>Tickets Sold:</strong> {{ getTicketsSold(show.id) | async }}</p>
+
+        <!-- Remove Show Button by ID -->
+        <button class="btn btn-danger" (click)="removeShowById(show.id)">Remove Show</button>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #noShowsMessage>
+    <p class="text-center">No shows available.</p>
+  </ng-template>
+</div>

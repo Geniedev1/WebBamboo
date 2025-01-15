@@ -1,0 +1,60 @@
+/* user-registration.component.css */
+
+.container {
+  background-color: #f7f7f7;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  margin-top: 50px;
+}
+
+h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #007bff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 30px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+input.form-control {
+  border-radius: 25px;
+  padding: 15px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  box-shadow: none;
+  transition: border 0.3s ease;
+}
+
+input.form-control:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+button.btn-primary {
+  background-color: #007bff;
+  border-radius: 25px;
+  padding: 15px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button.btn-primary:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+button.btn-block {
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .container {
+    width: 90%;
+  }
+}

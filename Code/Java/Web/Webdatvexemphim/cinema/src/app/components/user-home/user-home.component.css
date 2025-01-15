@@ -1,0 +1,48 @@
+.navbar-nav {
+    justify-content: center; 
+  }
+  
+  .navbar-nav .nav-link {
+    font-size: 1.2rem; 
+    font-weight: bold; 
+    text-transform: uppercase; 
+    color: white !important; 
+    padding: 10px 15px; 
+    transition: opacity 0.3s ease; 
+  }
+  
+  .navbar-nav .nav-link:hover {
+    opacity: 0.7; 
+  }
+  
+  
+  .d-flex {
+    position: absolute;
+    top: 10px; 
+    right: 10px; 
+  }
+  
+  .d-flex .btn {
+    background-color: transparent !important; 
+    border: none !important;
+    color: white !important; 
+    font-size: 1rem; 
+    font-weight: bold; 
+    text-transform: uppercase; 
+    cursor: pointer; 
+    padding: 5px 15px; 
+    transition: opacity 0.3s ease; 
+  }
+  
+  .d-flex .btn:hover {
+    opacity: 0.7;
+  }
+  
+  
+  h5.ml-2 {
+    margin-top: 10px; 
+    margin-left: 15px; 
+    font-size: 1.1rem; 
+    color: white;
+  }
+  

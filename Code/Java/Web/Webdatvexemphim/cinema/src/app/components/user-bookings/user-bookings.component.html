@@ -1,0 +1,25 @@
+<!-- user-bookings.component.html -->
+
+<div class="container" *ngIf="user && bookings && shows">
+
+  <h4 class="text-center" style="background-color: rgb(121, 242, 142);">Your Bookings</h4>
+  <div *ngFor="let booking of bookings; let i = index">
+    <div class="card ">
+      <div class="card-body" style="background-color: bisque;">
+        <h3 class="card-title">Booking ID{{booking.id}}</h3>
+        <p class="card-text"><strong>Movie Name:</strong> {{ shows[i].movieName }}</p>
+        <p class="card-text"><strong>Show Time:</strong> {{ shows[i].showDateTime | date: 'medium'}}</p>
+        <p class="card-text"><strong>Theatre Name:</strong> {{ shows[i].theatreName }}</p>
+        <p class="card-text"><strong>Tickets: Seat No.s </strong> {{ booking.seatNumbers }}</p>
+        <p class="card-text"><strong>Total Amount :</strong> {{ booking.seatNumbers.length *150 }}</p>
+
+        <button class="btn btn-danger" (click)="cancelBooking(booking.id)">Cancel Booking</button>
+
+      
+
+
+      </div>
+    </div>
+    <br />
+  </div>
+</div>

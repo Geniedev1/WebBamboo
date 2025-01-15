@@ -1,0 +1,26 @@
+<app-header></app-header>
+
+<div class="container col-md-5 mt-5 mb-3">
+  <h2 class="text-primary text-center mb-4">Registration</h2>
+    
+  <form class="registration-form" (ngSubmit)="registerUser()" #registrationForm="ngForm">
+    <div class="form-group">
+      <label for="username" class="font-weight-bold">Register:</label>
+      <input type="text" id="username" name="username" class="form-control input-field" [(ngModel)]="user.username" placeholder="Nhập tên tài khoản" required>
+    </div>
+    
+    <div class="form-group">
+      <label for="password" class="font-weight-bold">Password:</label>
+      <input type="password" id="password" name="password" class="form-control input-field" [(ngModel)]="user.password" placeholder="Nhập mật khẩu" required>
+    </div>
+
+    <div class="form-group">
+      <label for="email" class="font-weight-bold">Email:</label>
+      <input type="email" id="email" name="email" class="form-control input-field" [(ngModel)]="user.email" placeholder="Nhập email" required>
+    </div>
+  
+    <div class="text-center mt-4">
+      <button type="submit" class="btn btn-primary btn-block">Regist</button>
+    </div>
+  </form>
+</div>

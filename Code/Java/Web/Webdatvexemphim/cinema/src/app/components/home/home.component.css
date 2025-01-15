@@ -1,0 +1,80 @@
+.background-container {
+  position: relative;
+  background: url('../../../assets/background.jpg') center/cover no-repeat;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column; 
+}
+
+
+.outlined-heading {
+  font-size: 4rem;
+  font-weight: bold;
+  color: #ffffff;
+  text-align: center;
+  border: 4px solid #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.5);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  margin-bottom: 30px; 
+}
+
+.button-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  gap: 20px; 
+  margin-bottom: 20px; 
+}
+
+button {
+  width: 120px;
+  height: 40px;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button.btn-success {
+  background-color: #28a745;
+  color: white;
+}
+
+button.btn-success:hover {
+  background-color: #218838;
+  transform: scale(1.05);
+}
+
+button.btn-info {
+  background-color: #17a2b8;
+  color: white;
+}
+
+button.btn-info:hover {
+  background-color: #117a8b;
+  transform: scale(1.05);
+}
+
+.manage-button {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background-color: #007bff;
+  color: white;
+  font-weight: bold;
+  border-radius: 20px;
+  padding: 10px 20px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.manage-button:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}

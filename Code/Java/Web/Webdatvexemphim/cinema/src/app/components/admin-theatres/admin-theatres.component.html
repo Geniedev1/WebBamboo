@@ -1,0 +1,52 @@
+<div class="container">
+<h2 class="text-primary text-center">All Theatres</h2>
+
+<!-- Add Theatre Button -->
+<button class="btn btn-success mb-3" (click)="showAddTheatreForm = !showAddTheatreForm">Add Theatre</button>
+
+<!-- Add Theatre Form -->
+<div *ngIf="showAddTheatreForm">
+  <form (ngSubmit)="addTheatre()">
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" class="form-control" [(ngModel)]="newTheatre.name"
+        placeholder="Enter the theatre name" required>
+    </div>
+    <div class="form-group">
+      <label for="location">Location:</label>
+      <input type="text" id="location" name="location" class="form-control" [(ngModel)]="newTheatre.location"
+        placeholder="Enter the theatre location" required>
+    </div>
+    <div class="form-group">
+      <label for="numberOfRows">Number of Rows:</label>
+      <input type="number" id="numberOfRows" name="numberOfRows" class="form-control" [(ngModel)]="newTheatre.numberOfRows"
+        placeholder="Enter the number of rows" required>
+    </div>
+    <div class="form-group">
+      <label for="numberOfColumns">Number of Columns:</label>
+      <input type="number" id="numberOfColumns" name="numberOfColumns" class="form-control" [(ngModel)]="newTheatre.numberOfColumns"
+        placeholder="Enter the number of columns" required>
+    </div>
+    <!-- Add other form fields as needed -->
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>
+
+<!-- Display Theatres -->
+<div *ngIf="theatres.length > 0 else noTheatresMessage">
+  <div *ngFor="let theatre of theatres" class="card mb-3">
+    <div class="card-body" style="background-color: rgb(215, 228, 212);">
+      <h5 class="card-title">{{ theatre.name }}</h5>
+      <p class="card-text"><strong>Location</strong>: {{ theatre.location }}</p>
+      <p class="card-text">Number of Rows: {{ theatre.numberOfRows }}</p>
+      <p class="card-text">Number of Columns: {{ theatre.numberOfColumns }}</p>
+      <!-- Remove Theatre Button by Name -->
+      <button class="btn btn-danger" (click)="removeTheatreByName(theatre.name)">Remove Theatre</button>
+    </div>
+  </div>
+</div>
+
+<ng-template #noTheatresMessage>
+  <p class="text-center">No theatres available.</p>
+</ng-template>
+</div>

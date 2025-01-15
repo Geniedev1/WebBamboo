@@ -1,0 +1,42 @@
+<!-- user-movies.component.html -->
+
+<div class="container">
+  <h2 class="text-center">Danh sách phim đang chiếu</h2>
+  <!-- Search Bar -->
+  <div class="input-group mb-3">
+    <input type="text" class="form-control" placeholder="Tìm phim" [(ngModel)]="searchTerm" (input)="filterMovies()">
+    <div class="input-group-append">
+      <button class="btn btn-outline-secondary" type="button" (click)="clearSearch()">Xóa</button>
+    </div>
+  </div>
+  <div class="card-deck">
+    <div *ngFor="let movie of filteredMovies" class="movie-card">
+      <div class="card" style="background-color: antiquewhite;">
+        <div class="card-body">
+          <img src="../../../assets/{{movie.title}}.jpg" class="card-img-top" alt="Custom Size Image" style="width: 150px; height: 200px;">
+
+          <h3 class="card-title">{{ movie.title }}</h3>
+          <p class="card-text"><strong>genre:</strong> {{ movie.genre }}</p>
+          <p class="card-text"><strong>Director:</strong> {{ movie.director }}</p>
+          <p class="card-text"><strong>Time:</strong> {{ movie.duration }} minutes</p>
+          <p class="card-text"><strong>Rating:</strong> {{ movie.rating }}/5</p>
+
+          <!-- Toggle Button for Show Details -->
+          <button class="btn btn-primary" (click)="movie.showVisible = !movie.showVisible">Details</button>
+
+          <!-- Display Shows -->
+          <div *ngIf="movie.showVisible">
+            <div *ngFor="let show of getShowsForMovie(movie)" class="show-details">
+              <div class="mt-2 mb-2" style="border-radius: 3px; background-color: rgb(163, 158, 158);">
+                <p><strong>Theatre:</strong> {{ show.theatreName }}</p>
+                <p><strong></strong> {{ show.showDateTime | date: 'medium'}}</p>
+                <button class="btn btn-success" (click)="bookTicket(show.id)">booking</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<router-outlet></router-outlet>

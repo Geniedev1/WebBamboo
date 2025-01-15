@@ -1,0 +1,34 @@
+<div>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-dark nav nav-tabs">
+    <a class="navbar-brand text-white">Cinema</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" 
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link text-white" routerLink="/admin-home/admin-movies" href="#">Movie</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" routerLink="/admin-home/admin-theatres">Theatre</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" routerLink="/admin-home/admin-shows">Show</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Button Đăng xuất -->
+  <div class="d-flex justify-content-end">
+    <button class="btn btn-primary mt-2 mr-2" (click)="confirmLogout()">Logout</button>
+  </div>
+
+  <!-- Phần nội dung chính của ứng dụng -->
+  <div>
+    <router-outlet></router-outlet> <!-- Nơi các component con sẽ được render -->
+  </div>
+</div>

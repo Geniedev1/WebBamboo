@@ -1,0 +1,23 @@
+/* Bỏ màu nền và giữ chữ */
+.navbar {
+    background-color: transparent !important; /* Nền trong suốt */
+    border: none; /* Bỏ đường viền */
+    box-shadow: none; /* Bỏ hiệu ứng bóng */
+  }
+  
+  .nav-link {
+    font-size: 20px;
+    color: black !important; /* Màu chữ đen */
+    text-decoration: none; /* Bỏ gạch chân */
+  }
+  
+  .nav-link.active {
+    font-weight: bold; /* Chữ đậm cho trạng thái active */
+    color: black !important; /* Màu chữ khi active */
+    background-color: transparent !important; /* Bỏ màu nền khi active */
+  }
+  
+  .nav-link:hover {
+    color: #007bff; /* Màu xanh khi hover */
+  }
+  

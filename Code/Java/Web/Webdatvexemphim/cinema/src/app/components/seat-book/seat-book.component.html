@@ -1,0 +1,39 @@
+\<div class="container col-md-10" *ngIf="show && theatre">
+  <div class="card col-xs-1">
+    <div class="card-body">
+      <h5 class="card-title">{{ show.showName }}</h5>
+      <p class="card-text">{{ show.showDateTime | date: 'medium' }}</p>
+      <p class="card-text">Theatre: {{ show.theatreName }}</p>
+      <p class="card-text">Moive: {{ show.movieName }}</p>
+    </div>
+  </div>
+
+  <!-- Seating Selection -->
+  <h3 class="text-center">Screen</h3>
+  <div class="row" *ngFor="let row of getRange(theatre.numberOfRows)">
+    <div class="seat"
+         *ngFor="let seatNumber of getRange(theatre.numberOfColumns)"
+         [ngClass]="{'selected': isSeatSelected(row, seatNumber), 'booked': isSeatBooked(row, seatNumber)}"
+         (click)="toggleSeat(row, seatNumber)">
+    </div>
+  </div>
+  
+  <div>
+    <p>Seat: {{ selectedSeats.join(', ') }}</p>
+  </div>
+
+  <!-- Đặt vé Button -->
+  <button class="btn btn-primary" (click)="onBookTickets()">Booking</button>
+
+  <!-- Hiển thị mã QR và tổng số tiền nếu đã chọn chỗ ngồi -->
+  <div *ngIf="showQRCode" class="mt-4 text-center">
+    <h4>Pay QR</h4>
+    <img [src]="paymentData" alt="QR Code" width="256" height="256">
+
+    <!-- Hiển thị tổng số tiền -->
+    <p>Total amount: {{ selectedSeats.length * 150 }} VND</p>
+
+    <!-- Nút Đã thanh toán -->
+    <button *ngIf="showPaymentButton" class="btn btn-success" (click)="confirmPayment()">Paid</button>
+  </div>
+</div>
