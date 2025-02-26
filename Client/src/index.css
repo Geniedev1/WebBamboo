@@ -2848,3 +2848,49 @@ header {
     text-align: center;
     margin-top: 100px;
 }
+/* Thiết lập reset/box-sizing cơ bản */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Container tổng cho 4 cột */
+.features-container {
+  display: flex;                /* Sử dụng Flexbox để canh và chia cột */
+  justify-content: space-between; /* Dàn đều các cột với khoảng cách hợp lý */
+  align-items: center;      /* Canh trên cùng (nếu ảnh khác chiều cao) */
+  max-width: 80%;   
+  height: 300px;        /* Giới hạn chiều rộng tối đa */
+  margin: 40px auto;           /* Căn giữa container và tạo khoảng cách trên/dưới */
+  padding: 0 20px;             /* Thêm khoảng trống hai bên */
+}
+
+/* Mỗi cột */
+.feature-item {
+  flex: 1;               /* Mỗi cột chiếm diện tích đều nhau */
+  text-align: center;    /* Canh giữa nội dung trong cột */
+  margin : auto;        /* Tạo khoảng cách giữa các cột */
+}
+
+/* Ảnh biểu tượng (icon) */
+.feature-item img {
+  max-width: 100px;       /* Giới hạn chiều rộng ảnh (tuỳ chỉnh theo ý muốn) */
+  height: auto;          /* Đảm bảo không bị méo ảnh */
+  margin: 15px auto;   /* Khoảng cách giữa ảnh và tiêu đề */
+ 
+}
+
+/* Tiêu đề */
+.feature-item h3 {
+  font-size: 2rem;     /* Kích cỡ chữ tuỳ ý */
+  margin-bottom: 10px;
+}
+
+/* Đoạn mô tả */
+.feature-item p {
+  font-size: 1.2rem;
+  color: #555;           /* Màu chữ xám nhạt */
+  line-height: 1.4;
+  text-align: center;
+}
