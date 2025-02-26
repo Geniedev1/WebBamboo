@@ -9,6 +9,8 @@ export const Blog = () => {
   return (
     <>
       <Header />
+      
+      <div>
       <main className="blog-main">
         <section className="blog-content">
           <h1>Blog</h1>
@@ -24,9 +26,10 @@ export const Blog = () => {
         </section>
         <aside className="sidebar">
           <h2>Related Products</h2>
-          <ListProduct />
         </aside>
       </main>
+      </div>
+      <ListProduct />
       <Footer />
     </>
   )

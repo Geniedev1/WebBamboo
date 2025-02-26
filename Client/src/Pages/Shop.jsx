@@ -10,6 +10,10 @@ export const Shop = () => {
   return (
     <>
     <Header/>
+    <div class = "header_hef">
+     <div class="header_hef_Shop"> Shop </div>
+     <div class= "header_hef_explain">Link</div>
+    </div>
     <ListProduct/>
     <Footer/>
     </>
