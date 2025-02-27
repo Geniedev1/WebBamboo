@@ -2894,3 +2894,69 @@ header {
   line-height: 1.4;
   text-align: center;
 }
+.Home_img {
+  max-width: 100%;
+  display: flex;
+  max-height:800px ;
+  justify-content: center;
+  margin-bottom: 100px;
+}
+.Home_img_4 {             /* Mỗi cột chiếm diện tích đều nhau */
+  margin-right: 30px;
+  overflow: hidden;
+}
+.Home_img_4 img {
+  width: 100%;       /* Giới hạn chiều rộng ảnh (tuỳ chỉnh theo ý muốn) */
+  height: 100%;          /* Đảm bảo không bị méo ảnh */
+  overflow: hidden;
+}
+.Home_img_2  {
+         /* Đảm bảo không bị méo ảnh */
+         margin-right: 30px;
+         overflow: hidden;
+
+}
+.Home_img_1  {
+  /* Đảm bảo không bị méo ảnh */
+  overflow: hidden;
+
+}
+.Home_img_3  {
+  /* Đảm bảo không bị méo ảnh */
+  overflow: hidden;
+
+}
+.Home_img_2 img {
+  width: 100%;       /* Giới hạn chiều rộng ảnh (tuỳ chỉnh theo ý muốn) */
+  height: 100%;          /* Đảm bảo không bị méo ảnh */
+}
+.Home_imgs2 {
+   margin-top: 30px;
+   overflow: hidden;
+}
+.Home_imgs4{
+  margin-top:30px;
+  overflow: hidden;
+}
+.Home_img img:hover {
+  transform: scale(1.1);
+  transition: transform 0.5s;
+}
+.Home_img_text {
+  position: relative;
+}
+.overlay-text {
+  position: absolute; /* Định vị tuyệt đối so với container */
+  top: 30%;         /* Đặt từ trên xuống 50% */
+  left: 65%;        /* Đặt từ trái sang 50% */
+  color: #000000;           /* Màu chữ trắng */
+  font-size: 20px;       /* Kích thước chữ */
+  padding: 10px 20px;    /* Khoảng cách giữa chữ và viền nền */
+}
+.overlay-text p {
+  font-size: 15px;
+  color: #555;
+}
+.overlay-text p:hover{
+  color: #F1F7EE;
+}
