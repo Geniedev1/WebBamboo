@@ -2960,3 +2960,25 @@ header {
 .overlay-text p:hover{
   color: #F1F7EE;
 }
+.header {
+  position: fixed;   /* Giúp header luôn ở trên cùng */
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 9999;     /* Để header nổi trên các phần tử khác */
+  transition: top 0.3s ease; /* Hiệu ứng trượt mượt mà */
+  background-color: #F1F7EE;    /* Nền trắng hoặc màu tùy ý */
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1); /* Tạo bóng nhẹ, tuỳ chỉnh */
+}
+
+/* Khi headerVisible = true → hiển thị (top = 0) */
+.header.show {
+  top: 0;
+}
+
+/* Khi headerVisible = false → ẩn header (dịch lên trên) */
+.header.hide {
+  top: -80px; /* Thay -80px bằng chiều cao thực tế của header */
+}
+
+/* Các class khác tuỳ bạn cấu hình, ví dụ: .navbar, .navbar-link, .header-action-btn... */
