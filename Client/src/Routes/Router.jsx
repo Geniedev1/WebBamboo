@@ -11,6 +11,7 @@ import { Protected } from "../Component/Protected";
 import {Blog} from "../Pages/Blog";
 import { Header } from "../Component/Header";
 import { Footer } from "../Component/Footer";
+import { Contact } from "../Pages/Contact"
 export const Router = () => {
   const [isSignedIn, setIsSignedIn] = useState(
     sessionStorage.getItem("token") || false
@@ -19,6 +20,7 @@ export const Router = () => {
   return (
     <>
       <Routes>
+        <Route path = "/contact" element = {<Contact/>}/>
         <Route path="/" element={<Home />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/shop" element={<Shop />} />

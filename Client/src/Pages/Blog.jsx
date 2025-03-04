@@ -10,7 +10,7 @@ export const Blog = () => {
     <>
       <Header />
       
-      <div>
+      <div className = "Blog_box">
       <main className="blog-main">
         <section className="blog-content">
           <h1>Blog</h1>

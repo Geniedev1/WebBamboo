@@ -91,6 +91,12 @@ export const Home = () => {
             </div> 
     </div>
    </div>
+   <div>
+    <div class = "Home_productarrivals">
+        <h1>THE NEW ARRIVALS</h1>
+        <h3>Preorder now to receive exclusive deals & gifts</h3>
+    </div>
+   </div>
       {/* 
   - #PRODUCT
 */}

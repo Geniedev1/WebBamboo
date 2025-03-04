@@ -11,8 +11,11 @@ export const Shop = () => {
     <>
     <Header/>
     <div class = "header_hef">
-     <div class="header_hef_Shop"> Shop </div>
-     <div class= "header_hef_explain">Link</div>
+     <div class="header_hef_Shop">
+      <h1>Shop</h1>
+      <br/>
+      <h3>Link</h3>
+     </div>
     </div>
     <ListProduct/>
     <Footer/>

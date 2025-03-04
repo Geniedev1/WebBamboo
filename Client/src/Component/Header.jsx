@@ -113,16 +113,9 @@ export const Header = () => {
                 </LinkScroll>
               </li>
               <li>
-                <LinkScroll
-                  activeClass="active"
-                  className="navbar-link"
-                  smooth="linear"
-                  spy
-                  to="contact"
-                  offset={-30}
-                >
-                  Contact
-                </LinkScroll>
+              <li>
+                <Link to="/contact" className="navbar-link">Contact</Link>
+              </li>
               </li>
             </ul>
           </nav>
