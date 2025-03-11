@@ -2981,7 +2981,7 @@ input[type=number] {
   }
   .header_hef {
     width: 100%;
-    height: 500px;
+    height: 609px;
     display: flex;
     justify-content: center;
     background: #F1F7EE;
@@ -3018,15 +3018,22 @@ input[type=number] {
   height : 300px;
   background: #F8F9FA;
   margin-right : 30px;
+  box-shadow: 0px 0px 20px rgba(58, 57, 57, 0.3);
+
 }
 .Contact_img {
   width : 60%;
   height : 500px;
   background: #F8F9FA;
+  box-shadow: 0px 0px 20px rgba(66, 65, 65, 0.3);
+
 }
 .Contact_map {
   width: 90%;
   display :flex;
   justify-content: center;
-  height : 300px;
+  height :800px;
+  margin : auto;
+  margin-bottom: 50px;
+  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.3);
 }
