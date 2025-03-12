@@ -1,0 +1,4 @@
+Django>=3.2,<4.0
+djangorestframework>=3.12
+djangorestframework-simplejwt>=4.8.0
+django-allauth
