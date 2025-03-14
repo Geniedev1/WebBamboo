@@ -9,7 +9,7 @@ export const ListProduct = () => {
   const fetchData = async () => {
     try {
       const response = await axiosFetch({
-        url: "product/",
+        url: "api/products/products/",
         method: "GET",
       });
 
@@ -107,20 +107,20 @@ export const ListProduct = () => {
             </li>
           </ul>
           <ul className="grid-list">
-            {data.length > 0 ? (
-              data.map((item) => (
-                <ProductCard
-                  key={item.productid}
-                  id={item.productid}
-                  name={item.productName}
-                  description={item.description}
-                  price={item.price}
-                  img={item.img}
-                />
-              ))
-            ) : (
-              <p>No products available</p>
-            )}
+          {data.length > 0 ? (
+    data.map((item) => (
+      <ProductCard
+        key={item.id} // Sửa từ item.productid thành item.id
+        id={item.id}
+        name={item.name} // Sửa từ item.productName thành item.name
+        description={item.description}
+        price={parseFloat(item.price)} // Chuyển price từ string thành số
+        img={item.image_url} // Sửa từ item.img thành item.image_url
+      />
+    ))
+  ) : (
+    <p>No products available</p>
+  )}
           </ul>
         </div>
       </section>

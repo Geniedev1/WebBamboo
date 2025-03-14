@@ -7,7 +7,7 @@ export const Items = ({ prop ,setLoading}) => {
   const [quantity, setQuantity] = useState(prop.quantity);
   const[token,setToken]=useState(sessionStorage.getItem("token"));
   
-  const [item2, setItem2] = useState(prop.products);
+  const [item2, setItem2] = useState(prop.product);
 
   const onToast = () => {
     toast.success('Item Removed!!', {
@@ -33,7 +33,7 @@ export const Items = ({ prop ,setLoading}) => {
           "Authorization": "Bearer "+token
         },
         body: JSON.stringify({
-          productId: prop.products.productid,
+          productId: prop.product.id,
           quantity: q,
         }),
       }
@@ -68,7 +68,7 @@ export const Items = ({ prop ,setLoading}) => {
   const handleRemove = async () =>{
     //call delete api without body
     const res = await  fetch(
-      `http://localhost:9090/cart/product/${prop.products.productid}`,
+      `http://localhost:9090/cart/product/${prop.product.productid}`,
       {
         method: "DELETE",
         headers: {
@@ -91,7 +91,7 @@ export const Items = ({ prop ,setLoading}) => {
         <th scope="row" className="border-0">
           <div className="p-2">
             <img
-              src={`data:image/png;base64,${item2.img}`}
+              src={`${item2.image_url}`}
               alt=""
               width={70}
               className="img-fluid rounded shadow-sm d-inline "
@@ -100,7 +100,7 @@ export const Items = ({ prop ,setLoading}) => {
               <h5 className="mb-0">
                 {" "}
                 <a href="#" className="text-dark d-inline-block align-middle">
-                  {item2.productName}
+                  {item2.name}
                 </a>
               </h5>
               <span className="text-muted font-weight-normal font-italic d-block">

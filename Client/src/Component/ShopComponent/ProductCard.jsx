@@ -52,16 +52,13 @@ export const ProductCard = (props) => {
       <li>
         <div className="product-card">
           <figure className="card-banner">
-            <img
-              // src="./images/product-1.png"
-              src={`data:image/png;base64,${props.img}`}
-              // src={base64Image}
-
-              width={189}
-              height={189}
-              loading="lazy"
-              alt="Fresh Orangey"
-            />
+          <img
+  src={props.img} // ✅ Dùng URL thay vì base64
+  width={189}
+  height={189}
+  loading="lazy"
+  alt={props.name} // ✅ Thay "Fresh Orangey" bằng tên sản phẩm để tốt cho SEO
+/>
             <div className="btn-wrapper">
               <button className="product-btn" aria-label="Add to Whishlist">
                 <ion-icon name="heart-outline" />

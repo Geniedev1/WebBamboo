@@ -17,14 +17,14 @@ export const Cart = () => {
       const fatchCart = async () => {
         // get cart item
         console.log(token);
-        const res = await fetch("http://localhost:9090/cart/1", {headers: {
+        const res = await fetch("http://localhost:9090/api/orders/cart/", {headers: {
             "Content-Type": "application/json",
             "Authorization": "Bearer "+token
           },
         });
         const data = await res.json();
         setTotalAmount(data.totalAmount);
-        setItem(data.cartDetalis);
+        setItem(data.items);
       };
 
       useEffect(() => {
