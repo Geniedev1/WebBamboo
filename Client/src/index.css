@@ -2782,24 +2782,26 @@ input[type=number] {
   align-items: center;      /* Canh trên cùng (nếu ảnh khác chiều cao) */
   max-width: 80%;   
   height: 300px;        /* Giới hạn chiều rộng tối đa */
-  margin: 40px auto;           /* Căn giữa container và tạo khoảng cách trên/dưới */
-  padding: 0 20px;             /* Thêm khoảng trống hai bên */
+  margin: 40px auto;
+  flex-wrap:wrap;         /* Căn giữa container và tạo khoảng cách trên/dưới */
 }
 
 /* Mỗi cột */
 .feature-item {
-  flex: 1;               /* Mỗi cột chiếm diện tích đều nhau */
+  flex : 1 1 50px;               /* Mỗi cột chiếm diện tích đều nhau */
   text-align: center;    /* Canh giữa nội dung trong cột */
-  margin : auto;        /* Tạo khoảng cách giữa các cột */
+  margin : auto;  
+        /* Tạo khoảng cách giữa các cột */
 }
 
 /* Ảnh biểu tượng (icon) */
 .feature-item img {
-  max-width: 100px;       /* Giới hạn chiều rộng ảnh (tuỳ chỉnh theo ý muốn) */
+  max-width:30%;       /* Giới hạn chiều rộng ảnh (tuỳ chỉnh theo ý muốn) */
   height: auto;          /* Đảm bảo không bị méo ảnh */
   margin: 15px auto;   /* Khoảng cách giữa ảnh và tiêu đề */
  
 }
+
 
 /* Tiêu đề */
 .feature-item h3 {
@@ -2814,6 +2816,8 @@ input[type=number] {
   line-height: 1.4;
   text-align: center;
 }
+
+
 .Home_img {
   max-width: 100%;
   display: flex;
