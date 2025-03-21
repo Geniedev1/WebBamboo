@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { ProductCard } from "../ShopComponent/ProductCard";
 import axiosFetch from "../../Helper/Axios";
 
-export const ListProduct = () => {
+export const AllProduct = () => {
   const [token, setToken] = useState(sessionStorage.getItem("token"));
   const [data, setData] = useState([]);
 
@@ -34,8 +34,7 @@ export const ListProduct = () => {
     <>
       <section id="products" className="section product">
         <div className="container">
-          <p className="section-subtitle"> -- Organic Products --</p>
-          <h2 className="h2 section-title">All Organic Products</h2>
+          
           <ul className="grid-list">
           {data.length > 0 ? (
     data.map((item) => (
