@@ -27,7 +27,7 @@ export const ProductCard = (props) => {
     if(sessionStorage.getItem("token")===null){
       navigate("/login");
     }
-    const res = await fetch("http://localhost:9090/cart/addproduct", {
+    const res = await fetch("http://localhost:9090/orders/cart/add/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -52,13 +52,16 @@ export const ProductCard = (props) => {
       <li>
         <div className="product-card">
           <figure className="card-banner">
-          <img
-  src={props.img} // ✅ Dùng URL thay vì base64
-  width={189}
-  height={189}
-  loading="lazy"
-  alt={props.name} // ✅ Thay "Fresh Orangey" bằng tên sản phẩm để tốt cho SEO
-/>
+            <img
+              // src="./images/product-1.png"
+              src={props.img}
+              // src={base64Image}
+
+              width={189}
+              height={189}
+              loading="lazy"
+              alt="Fresh Orangey"
+            />
             <div className="btn-wrapper">
               <button className="product-btn" aria-label="Add to Whishlist">
                 <ion-icon name="heart-outline" />

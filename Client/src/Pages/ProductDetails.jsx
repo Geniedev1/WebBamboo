@@ -83,7 +83,7 @@ console.log(quantity);
     
     <>
 <Header/>
-  <div className="pd-wrap">
+  <div className="pd-wrap ">
     <div className="container">
       {/* <div className="heading-section">
         <h2>Product Details</h2>
