@@ -1,4 +1,4 @@
 from django.contrib import admin
-from .models import Wishlist
+from .models import SimpleModel
 
-admin.site.register(Wishlist)
+admin.site.register(SimpleModel)

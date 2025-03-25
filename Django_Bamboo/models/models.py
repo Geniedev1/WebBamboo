@@ -1,10 +1,8 @@
 from django.db import models
-from django.conf import settings
-from products.models import Product
 
-class Wishlist(models.Model):
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    products = models.ManyToManyField(Product, related_name='wishlisted_by')
+class SimpleModel(models.Model):
+    name = models.CharField(max_length=100, help_text="Nhập tên đối tượng")
+    description = models.TextField(blank=True, null=True, help_text="Mô tả đối tượng (tùy chọn)")
 
     def __str__(self):
-        return f"Wishlist của {self.user.username}"
+        return self.name
