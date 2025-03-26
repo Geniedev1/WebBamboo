@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Routes, Route } from "react-router-dom";
 import { Home } from "../Pages/Home";
 import { ProductDetails } from "../Pages/ProductDetails";
@@ -8,38 +8,36 @@ import { CheckOut } from "../Pages/CheckOut";
 import { Login } from "../Pages/Login";
 import { Singup } from "../Pages/Singup";
 import { Protected } from "../Component/Protected";
-import {Blog} from "../Pages/Blog";
-import { Header } from "../Component/Header";
-import { Footer } from "../Component/Footer";
-import { Contact } from "../Pages/Contact"
-export const Router = () => {
-  const [isSignedIn, setIsSignedIn] = useState(
-    sessionStorage.getItem("token") || false
-  );
+import { Blog } from "../Pages/Blog";
+import { Contact } from "../Pages/Contact";
 
+export const Router = () => {
   return (
     <>
       <Routes>
-        <Route path = "/contact" element = {<Contact/>}/>
         <Route path="/" element={<Home />} />
+        <Route path="/contact" element={<Contact />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/shop" element={<Shop />} />
         <Route path="/product/:id" element={<ProductDetails />} />
         <Route
           path="/cart"
           element={
-            <Protected isSignedIn={isSignedIn}>
+            <Protected>
               <Cart />
+            </Protected>
+          }
+        />
+        <Route
+          path="/checkout"
+          element={
+            <Protected>
+              <CheckOut />
             </Protected>
           }
         />
         <Route path="/login" element={<Login />} />
         <Route path="/singup" element={<Singup />} />
-        <Route path="/checkout" element={
-        <Protected isSignedIn={isSignedIn}>
-        <CheckOut />
-      </Protected>
-        } />
       </Routes>
     </>
   );

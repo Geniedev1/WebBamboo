@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import  {Header } from '../Component/Header';
 import { Footer } from "../Component/Footer";
@@ -163,39 +163,193 @@ const MetaSection = () => {
   );
 };
 
+
 const BlogContent = () => {
+  const [posts, setPosts] = useState([]);
+  const [expandedPostId, setExpandedPostId] = useState(null);
+  const [comments, setComments] = useState({});
+  const [newComment, setNewComment] = useState({});
+
+  useEffect(() => {
+    fetch("http://localhost:9090/api/blog/all-posts/")
+      .then((res) => res.json())
+      .then((data) => {
+        if (Array.isArray(data)) {
+          setPosts(data);
+        } else {
+          console.error("Dữ liệu blog không hợp lệ:", data);
+          setPosts([]);
+        }
+      })
+      .catch((err) => console.error("Lỗi khi load bài viết:", err));
+  }, []);
+
+  const handleLike = async (postId) => {
+    const token = sessionStorage.getItem("token");
+    if (!token) return alert("Bạn cần đăng nhập để like.");
+
+    try {
+      const res = await fetch("http://localhost:9090/api/blog/likes/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({ post: postId })
+      });
+      if (res.ok) {
+        setPosts(prev => prev.map(p =>
+          p.id === postId ? { ...p, like_count: p.like_count + 1 } : p
+        ));
+      }
+    } catch (error) {
+      console.error("Lỗi like:", error);
+    }
+  };
+
+  const handleShare = async (postId) => {
+    const token = sessionStorage.getItem("token");
+    if (!token) return alert("Bạn cần đăng nhập để share.");
+
+    try {
+      const res = await fetch("http://localhost:9090/api/blog/shares/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({ post: postId })
+      });
+      if (res.ok) {
+        setPosts(prev => prev.map(p =>
+          p.id === postId ? { ...p, share_count: p.share_count + 1 } : p
+        ));
+      }
+    } catch (error) {
+      console.error("Lỗi share:", error);
+    }
+  };
+
+  const toggleComments = async (postId) => {
+    if (expandedPostId === postId) {
+      setExpandedPostId(null);
+      return;
+    }
+
+    setExpandedPostId(postId);
+
+    try {
+      const res = await fetch(`http://localhost:9090/api/blog/comments/?post=${postId}`);
+      const data = await res.json();
+      setComments(prev => ({ ...prev, [postId]: data }));
+    } catch (error) {
+      console.error("Lỗi khi tải bình luận:", error);
+    }
+  };
+
+  const handleCommentSubmit = async (postId) => {
+    const token = sessionStorage.getItem("token");
+    const content = newComment[postId]?.trim();
+    if (!token) return alert("Bạn cần đăng nhập để bình luận.");
+    if (!content) return alert("Nội dung bình luận không được để trống.");
+
+    try {
+      const res = await fetch("http://localhost:9090/api/blog/comments/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({ post: postId, content })
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        setComments(prev => ({
+          ...prev,
+          [postId]: [...(prev[postId] || []), data]
+        }));
+        setNewComment(prev => ({ ...prev, [postId]: "" }));
+      }
+    } catch (error) {
+      console.error("Lỗi khi gửi bình luận:", error);
+    }
+  };
+
   return (
-    <div className="w-full md:w-3/4">
-      <article className="bg-white rounded-lg overflow-hidden shadow">
-        <img 
-          src="https://via.placeholder.com/800x350" 
-          alt="Modern bedroom interior" 
-          className="w-full h-96 object-cover"
-        />
-        
-        <div className="p-6">
-          <div className="text-gray-500 text-sm mb-4">
-            <span className="mr-4">POSTED BY: ADMIN</span>
-            <span>ON: APRIL 24, 2018</span>
+    <div className="w-full md:w-3/4 space-y-6">
+      {posts.map((post) => (
+        <article key={post.id} className="bg-white rounded-lg overflow-hidden shadow">
+          <img
+            src={post.product.image_url || "https://via.placeholder.com/800x350"}
+            alt={post.product.name}
+            className="w-full h-96 object-cover"
+          />
+          <div className="p-6">
+            <div className="text-gray-500 text-sm mb-4">
+              <span className="mr-4">POSTED BY: {post.author_username}</span>
+              <span>ON: {new Date(post.created_at).toLocaleDateString()}</span>
+            </div>
+            <h1 className="text-2xl font-bold mb-4">{post.title}</h1>
+            <div className="text-gray-600 leading-relaxed mb-4">
+              <p>{post.content}</p>
+            </div>
+            <div className="text-sm text-gray-500 mb-2">
+              <p>
+                <strong>Sản phẩm:</strong> {post.product.name} – 
+                <span className="text-green-600 font-semibold">Rs {post.product.price}</span>
+              </p>
+            </div>
+            <div className="flex space-x-4 items-center mb-2">
+              <button
+                className="text-red-500 hover:underline"
+                onClick={() => handleLike(post.id)}
+              >
+                ❤️ Like ({post.like_count})
+              </button>
+              <button
+                className="text-blue-500 hover:underline"
+                onClick={() => handleShare(post.id)}
+              >
+                🔁 Share ({post.share_count})
+              </button>
+              <button
+                className="text-gray-700 hover:underline"
+                onClick={() => toggleComments(post.id)}
+              >
+                💬 Bình luận
+              </button>
+            </div>
+
+            {expandedPostId === post.id && (
+              <div className="mt-4 border-t pt-4 space-y-2">
+                <h4 className="text-lg font-semibold">Bình luận:</h4>
+                {(comments[post.id] || []).map((comment) => (
+                  <div key={comment.id} className="border-b pb-2">
+                    <p className="font-semibold">{comment.user_username}</p>
+                    <p className="text-gray-700">{comment.content}</p>
+                  </div>
+                ))}
+                <textarea
+                  className="w-full border rounded p-2 mt-2"
+                  rows="2"
+                  placeholder="Viết bình luận..."
+                  value={newComment[post.id] || ""}
+                  onChange={(e) =>
+                    setNewComment(prev => ({ ...prev, [post.id]: e.target.value }))
+                  }
+                />
+                <button
+                  className="mt-2 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                  onClick={() => handleCommentSubmit(post.id)}
+                >
+                  Gửi bình luận
+                </button>
+              </div>
+            )}
           </div>
-          
-          <h1 className="text-2xl font-bold mb-6">Blog Image Post</h1>
-          
-          <div className="text-gray-600 leading-relaxed mb-8">
-            <p className="mb-4">
-              Aenean et tempor eros, vitae sollicitudin velit. Etiam varius enim nec quam tempor, sed efficitur ex ultrices. Phasellus pretium est vel dui vestibulum condimentum. Aenean nec suscipit nibh. Phasellus nec lacus id arcu facilisis elementum. Curabitur lobortis, elit ut elementum congue, erat ex bibendum odio, nec iaculis lacus sem non lorem. Duis suscipit metus ante, sed convallis quam posuere quis. Ut tincidunt eleifend odio, ac fringilla mi vehicula nec. Nunc vitae lacus eget lectus imperdiet tempus sed in dui. Nam molestie magna at risus consectetur, placerat suscipit justo dignissim. Sed vitae fringilla enim, nec ullamcorper arcu.
-            </p>
-            
-            <blockquote className="bg-gray-50 border-l-4 border-green-500 p-4 my-6 italic text-gray-600">
-              Quisque semper nunc vitae erat pellentesque, ac placerat arcu consectetur. In venenatis elit ac ultrices convallis. Duis est nisi, tincidunt ac urna sed, cursus blandit lectus. In ullamcorper sit amet ligula ut eleifend. Proin dictum tempor ligula, ac feugiat metus. Sed finibus tortor eu scelerisque scelerisque.
-            </blockquote>
-            
-            <p>
-              Aenean et tempor eros, vitae sollicitudin velit. Etiam varius enim nec quam tempor, sed efficitur ex ultrices. Phasellus pretium est vel dui vestibulum condimentum. Aenean nec suscipit nibh. Phasellus nec lacus id arcu facilisis elementum.
-            </p>
-          </div>
-        </div>
-      </article>
+        </article>
+      ))}
     </div>
   );
 };

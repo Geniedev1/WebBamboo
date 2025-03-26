@@ -1,25 +1,34 @@
 import React from 'react'
-
+import FadeInWrapper from '../FadeInWrapper'
 export const Hero = () => {
   return (
     <>
      <section className="hero">
         <div className="container">
           <div className="hero-content">
+            <FadeInWrapper>
             <p className="hero-subtitle">25% off all products.</p>
+            </FadeInWrapper>
+            <FadeInWrapper delay={300}>
             <h2 className="h1 hero-title">
               Qualityful <span className="span">organic</span>
               fruit &amp; <span className="span">vegetables.</span>
             </h2>
-            <p className="hero-text">
+            </FadeInWrapper>
+           <FadeInWrapper delay={600}>
+           <p className="hero-text">
               It has survived not only five centuries also there leaped.
             </p>
-            <a href="/shop" className="btn btn-primary">
+            </FadeInWrapper>
+           <FadeInWrapper delay={900}>
+           <a href="/shop" className="btn btn-primary">
               <span className="span">Shop Now</span>
               <ion-icon name="chevron-forward" aria-hidden="true" />
             </a>
+            </FadeInWrapper>
           </div>
-          <figure className="hero-banner">
+         <FadeInWrapper delay={1200}>
+         <figure className="hero-banner">
             <img
               src="./images/hero-banner.png"
               width={603}
@@ -29,6 +38,7 @@ export const Hero = () => {
               className="w-100"
             />
           </figure>
+          </FadeInWrapper>
         </div>
       </section>
     </>

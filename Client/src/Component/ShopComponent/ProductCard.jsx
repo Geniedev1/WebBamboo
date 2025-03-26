@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
-import BlogModal from "./BlogModal"; // thêm dòng này
+import BlogPostModal from "./BlogPostModal";
 
 export const ProductCard = (props) => {
   const navigate = useNavigate();
-  const [token, setToken] = useState(sessionStorage.getItem("token"));
-  const [showModal, setShowModal] = useState(false); // quản lý trạng thái modal
+  const [token] = useState(sessionStorage.getItem("token"));
+  const [showModal, setShowModal] = useState(false);
 
   const onToast = () => {
     toast.success('Added to cart!', {
@@ -44,41 +44,68 @@ export const ProductCard = (props) => {
 
   return (
     <>
-      <li>
-        <div className="product-card">
-          <figure className="card-banner">
-            <img src={props.img} width={189} height={189} loading="lazy" alt={props.name} />
-            <div className="btn-wrapper">
-              <button className="product-btn" aria-label="Add to Wishlist">
-                <ion-icon name="heart-outline" />
-                <div className="tooltip">Add to Wishlist</div>
-              </button>
-              <button
-                className="product-btn"
-                onClick={() => handalClick(props.id)}
-                aria-label="Quick View"
-              >
-                <ion-icon name="eye-outline" />
-                <div className="tooltip">Quick View</div>
-              </button>
-            </div>
-          </figure>
-          <h3 className="h4 card-title">
-            <a href={`/product/${props.id}`}>{props.name}</a>
-          </h3>
-          <div className="price-wrapper">
-            <del className="del">Rs {props.price + 100}</del>
-            <data className="price">Rs {props.price}</data>
+      <li className="group relative bg-white shadow rounded overflow-hidden mx-10">
+        <div className="relative overflow-hidden">
+          <img
+            src={props.img}
+            alt={props.name}
+            className="w-full h-auto object-contain"
+          />
+
+          {/* Overlay trượt từ dưới lên */}
+          <div
+            className="
+              absolute 
+              bottom-0 
+              left-0 
+              w-full 
+              bg-black 
+              text-white 
+              transform 
+              translate-y-full 
+              group-hover:translate-y-0 
+              transition-transform 
+              duration-500 
+              ease-in-out 
+              flex 
+              items-center 
+              justify-between 
+              px-4 
+              py-3 
+              gap-3 
+              text-sm
+            "
+          >
+            <button onClick={handalCart} className="font-semibold hover:underline">
+              ADD TO CART
+            </button>
+            <button onClick={() => handalClick(props.id)} title="Quick View">
+              <ion-icon name="eye-outline" />
+            </button>
+            <button title="Wishlist">
+              <ion-icon name="heart-outline" />
+            </button>
+            <button onClick={() => setShowModal(true)} title="Viết bài">
+              <ion-icon name="create-outline" />
+            </button>
           </div>
-          <button className="btn btn-primary" onClick={handalCart}>
-            Add to Cart
-          </button>
-          <button className="btn mt-2 bg-blue-500 text-white px-4 py-2 rounded" onClick={() => setShowModal(true)}>
-            Viết bài
-          </button>
+        </div>
+
+        <div className="p-4 text-center">
+          <h3 className="font-semibold text-gray-800 mb-1">{props.name}</h3>
+          <div className="text-sm text-gray-500">
+            <del className="mr-2">Rs {props.price + 100}</del>
+            <span className="text-black font-medium">Rs {props.price}</span>
+          </div>
         </div>
       </li>
-      {showModal && <BlogModal product={props} onClose={() => setShowModal(false)} />}
+
+      {showModal && (
+        <BlogPostModal
+          product={props}
+          onClose={() => setShowModal(false)}
+        />
+      )}
     </>
   );
 };

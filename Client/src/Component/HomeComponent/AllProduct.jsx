@@ -3,7 +3,6 @@ import { ProductCard } from "../ShopComponent/ProductCard";
 import axiosFetch from "../../Helper/Axios";
 
 export const AllProduct = () => {
-  const [token, setToken] = useState(sessionStorage.getItem("token"));
   const [data, setData] = useState([]);
 
   const fetchData = async () => {
@@ -12,17 +11,14 @@ export const AllProduct = () => {
         url: "api/products/products/",
         method: "GET",
       });
-
-      console.log("API Response:", response);
-
       if (response?.data && Array.isArray(response.data)) {
         setData(response.data);
       } else {
-        setData([]); // Nếu dữ liệu không hợp lệ, set về mảng rỗng
+        setData([]);
       }
     } catch (error) {
-      console.error("Lỗi khi gọi API:", error);
-      setData([]); // Đảm bảo state luôn có giá trị hợp lệ
+      console.error("Error fetching data:", error);
+      setData([]);
     }
   };
 
@@ -31,28 +27,32 @@ export const AllProduct = () => {
   }, []);
 
   return (
-    <>
-      <section id="products" className="section product">
-        <div className="container">
-          
-          <ul className="grid-list">
-          {data.length > 0 ? (
-    data.map((item) => (
-      <ProductCard
-        key={item.id} // Sửa từ item.productid thành item.id
-        id={item.id}
-        name={item.name} // Sửa từ item.productName thành item.name
-        description={item.description}
-        price={parseFloat(item.price)} // Chuyển price từ string thành số
-        img={item.image_url} // Sửa từ item.img thành item.image_url
-      />
-    ))
-  ) : (
-    <p>No products available</p>
-  )}
-          </ul>
-        </div>
-      </section>
-    </>
+    <section className="py-8">
+      <ul className="
+        grid 
+        grid-cols-1 
+        sm:grid-cols-2 
+        md:grid-cols-3 
+        lg:grid-cols-4 
+        px-4
+      ">
+        {data.length > 0 ? (
+          data.map((item) => (
+            <ProductCard
+              key={item.id}
+              id={item.id}
+              name={item.name}
+              description={item.description}
+              price={parseFloat(item.price)}
+              img={item.image_url}
+            />
+          ))
+        ) : (
+          <p className="col-span-full text-center text-gray-500">
+            No products available
+          </p>
+        )}
+      </ul>
+    </section>
   );
 };

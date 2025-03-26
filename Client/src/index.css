@@ -2823,9 +2823,10 @@ input[type=number] {
 .Home_img {
   max-width: 100%;
   display: flex;
-  max-height:800px ;
+  flex-wrap: wrap;         /* Cho các ảnh tự động xuống dòng */
   justify-content: center;
   margin-bottom: 100px;
+  height: auto;        
 }
 .Home_img_4 {             /* Mỗi cột chiếm diện tích đều nhau */
   margin-right: 30px;

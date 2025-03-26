@@ -99,7 +99,7 @@ export const Cart = () => {
   return (
     <>
       <Header />
-      <div className="shopping-cart">
+      <div className="shopping-cart mt-48">
         <div className="px-4 px-lg-0">
           <div className="pb-5">
             <div className="container">
