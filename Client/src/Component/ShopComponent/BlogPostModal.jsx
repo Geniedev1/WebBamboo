@@ -36,10 +36,9 @@ const BlogPostModal = ({ product, onClose }) => {
         </button>
 
         <h2 className="text-xl font-semibold mb-2">
-          Viết bài blog cho: <span className="text-blue-600">{product.name}</span>
+          Viết bài blog cho: <span className="text-green-600">{product.name}</span>
         </h2>
 
-        <img src={product.image_url} alt={product.name} className="w-24 h-24 object-cover rounded mb-4" />
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
@@ -48,14 +47,15 @@ const BlogPostModal = ({ product, onClose }) => {
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             required
-            className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-600"
           />
           <textarea
             placeholder="Nội dung bài viết"
+
             value={content}
             onChange={(e) => setContent(e.target.value)}
             required
-            className="w-full border border-gray-300 rounded px-3 py-2 h-32 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full border border-gray-300 rounded px-3 py-2 h-32 resize-none focus:outline-none focus:ring-2 focus:ring-green-600"
           />
           <div className="flex justify-end space-x-3">
             <button
@@ -67,7 +67,7 @@ const BlogPostModal = ({ product, onClose }) => {
             </button>
             <button
               type="submit"
-              className="px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-700"
+              className="px-4 py-2 rounded bg-green-600 text-white hover:bg-green-700"
             >
               Đăng bài
             </button>

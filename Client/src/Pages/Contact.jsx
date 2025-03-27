@@ -49,11 +49,11 @@ export const Contact = () => {
     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d51474.488389005564!2d105.65763418039862!3d20.926002731676657!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31344def665bc727%3A0x6b9b39cae8be2b53!2zVHLGsOG7nW5nIFRIUFQgQ2jGsMahbmcgTeG7uSBB!5e1!3m2!1svi!2s!4v1741062351687!5m2!1svi!2s"   allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class = "Contact_map"></iframe>
 
     </div>
-      <div className="container mx-auto px-4 py-8">
-        <div className="grid md:grid-cols-2 gap-8 bg-white shadow-lg rounded-lg overflow-hidden">
-          <div className="bg-gray-100 p-8 space-y-6">
+      <div className=" mx-auto px-4 py-8 mb-20">
+        <div className="  flex gap-20  rounded-lg mx-52">
+          <div className="bg-gray-100 p-12 space-y-6 w-1/3 h-[350px]">
             <div className="flex items-center space-x-4">
-              <i className="fas fa-phone text-xl"></i>
+              <i className="fas fa-phone text-2xl font-bold"></i>
               <span>+012 345 678 102</span>
             </div>
             <div className="flex items-center space-x-4">
@@ -76,7 +76,7 @@ export const Contact = () => {
             </div>
           </div>
 
-          <div className="p-8">
+          <div className="p-8 bg-gray-100 w-2/3 h-[600px]  ">
             <h2 className="text-2xl font-bold mb-6 text-gray-800">Get In Touch</h2>
             <form onSubmit={handleSend} className="space-y-4">
               <div className="grid md:grid-cols-2 gap-4">
@@ -113,13 +113,13 @@ export const Contact = () => {
                 value={formData.message}
                 onChange={handleChange}
                 placeholder="Your Message"
-                rows="4"
-                className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                rows="15"
+                className="w-full bg-gray-100 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
               ></textarea>
               <button
                 type="submit"
-                className="w-full bg-gray-800 text-white py-2 rounded-md hover:bg-gray-700 transition duration-300"
+                className="w-52 bg-gray-800 text-white py-6 my-8 rounded-md hover:bg-gray-700 transition duration-300"
               >
                 SEND
               </button>
