@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import BlogPostModal from "./BlogPostModal";
-
+import { showToast } from "./toast";
 export const ProductCard = (props) => {
   const navigate = useNavigate();
   const [token] = useState(sessionStorage.getItem("token"));
@@ -23,22 +23,22 @@ export const ProductCard = (props) => {
     if (!token) {
       return navigate("/login");
     }
-    const res = await fetch("http://localhost:9090/orders/cart/add/", {
+    const res = await fetch("http://localhost:9090/api/orders/cart/add/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + token
       },
       body: JSON.stringify({
-        productId: props.id,
+        product: props.id,
         quantity: 1,
       }),
     });
-
-    if (res.status === 200) {
-      onToast();
-    } else {
-      navigate("/login");
+    if (res.status === 201) {
+      showToast("Add successful", "success");
+    }
+     else {
+      showToast("Add failed", "error");
     }
   };
 

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import  {Header } from '../Component/Header';
 import { Footer } from "../Component/Footer";
+import { showToast } from '../Component/ShopComponent/toast';
+import { toast } from 'react-toastify';
 export const Blog = () => {
   return (
     <div className="bg-gray-50 text-gray-800 min-h-screen">
@@ -186,8 +188,7 @@ const BlogContent = () => {
 
   const handleLike = async (postId) => {
     const token = sessionStorage.getItem("token");
-    if (!token) return alert("Bạn cần đăng nhập để like.");
-
+    if (!token) return showToast("You need login to Like.","error");
     try {
       const res = await fetch("http://localhost:9090/api/blog/likes/", {
         method: "POST",
@@ -209,7 +210,7 @@ const BlogContent = () => {
 
   const handleShare = async (postId) => {
     const token = sessionStorage.getItem("token");
-    if (!token) return alert("Bạn cần đăng nhập để share.");
+    if (!token) return showToast("You need login to Share.","error");
 
     try {
       const res = await fetch("http://localhost:9090/api/blog/shares/", {
@@ -250,9 +251,8 @@ const BlogContent = () => {
   const handleCommentSubmit = async (postId) => {
     const token = sessionStorage.getItem("token");
     const content = newComment[postId]?.trim();
-    if (!token) return alert("Bạn cần đăng nhập để bình luận.");
-    if (!content) return alert("Nội dung bình luận không được để trống.");
-
+    if(!token) return showToast("You need login to Comment.","error");
+    if (!content) return showToast("Comment can't be empty.","error");
     try {
       const res = await fetch("http://localhost:9090/api/blog/comments/", {
         method: "POST",
@@ -294,30 +294,30 @@ const BlogContent = () => {
             <div className="text-gray-600 leading-relaxed mb-4">
               <p>{post.content}</p>
             </div>
-            <div className="text-sm text-gray-500 mb-2">
-              <p>
+            <div className="text-xl text-gray-500 mb-2">
+              <p className = "flex">
                 <strong>Sản phẩm:</strong> {post.product.name} – 
-                <span className="text-green-600 font-semibold">Rs {post.product.price}</span>
+                <span className="text-green-600 font-semibold">{post.product.price} VND</span>
               </p>
             </div>
-            <div className="flex space-x-4 items-center mb-2">
+            <div className="flex space-x-4 items-center mb-2  justify-between px-24 mt-8">
               <button
-                className="text-red-500 hover:underline"
+                className="text-gray-700 hover:underline  text-3xl flex"
                 onClick={() => handleLike(post.id)}
               >
-                ❤️ Like ({post.like_count})
+                👍 ({post.like_count}) 
               </button>
               <button
-                className="text-blue-500 hover:underline"
-                onClick={() => handleShare(post.id)}
-              >
-                🔁 Share ({post.share_count})
-              </button>
-              <button
-                className="text-gray-700 hover:underline"
+                className="text-gray-700 hover:underline font-semibold"
                 onClick={() => toggleComments(post.id)}
               >
                 💬 Bình luận
+              </button>
+              <button
+                className="text-gray-700 hover:underline font-semibold"
+                onClick={() => handleShare(post.id)}
+              >
+                🔁 Share ({post.share_count})
               </button>
             </div>
 
@@ -340,7 +340,7 @@ const BlogContent = () => {
                   }
                 />
                 <button
-                  className="mt-2 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                  className="mt-2 px-4 py-2 bg-green-600 text-white rounded hover:bg-green-300"
                   onClick={() => handleCommentSubmit(post.id)}
                 >
                   Gửi bình luận

@@ -3,7 +3,7 @@ import { Header } from '../Component/Header'
 import { Footer } from '../Component/Footer'
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
-
+import { showToast } from '../Component/ShopComponent/toast'; 
 export const ProductDetails = () => {
   const [data, setData] = useState([]);
   const [quantity, setQuantity] = useState(1);
@@ -54,11 +54,17 @@ export const ProductDetails = () => {
         }),
       }
     );
-    if (res.status === 200) {
-      onToast();
+    if (res.status === 201) {
+      showToast("Add successful", "success");
+    }
+    else {
+      showToast("Add failed", "error");
     }
   };
+  
 
+
+  
   useEffect(() => {
     window.scrollTo(0, 0);
     const fatchData = async () => {
