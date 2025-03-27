@@ -35,6 +35,9 @@ export const AllProduct = () => {
         md:grid-cols-3 
         lg:grid-cols-4 
         px-4
+        justify-center
+        mx-72
+        gap-20
       ">
         {data.length > 0 ? (
           data.map((item) => (

@@ -31,7 +31,7 @@ export const Router = () => {
         <Route
           path="/checkout"
           element={
-            <Protected>
+            <Protected> 
               <CheckOut />
             </Protected>
           }

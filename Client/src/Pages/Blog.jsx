@@ -53,7 +53,7 @@ export const Blog = () => {
 
 const Headerlink = () => {
   return (
-    <div class ="bg-mint m-full h-[350px]"></div>
+    <div class ="bg-mint m-full h-[400px]"></div>
   );
 };
 const MainContent = () => {
@@ -283,7 +283,7 @@ const BlogContent = () => {
           <img
             src={post.product.image_url || "https://via.placeholder.com/800x350"}
             alt={post.product.name}
-            className="w-full h-96 object-cover"
+            className="w-full h-[400px] object-cover  bg-orange-50"
           />
           <div className="p-6">
             <div className="text-gray-500 text-sm mb-4">

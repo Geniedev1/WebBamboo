@@ -176,11 +176,13 @@ export const Home = () => {
 </div>
 </div>
    <div>
-    <div className ="grid grid-cols-1 " >
-        <FadeInWrapper delay={600}>
-              <h1 className ="font-bold">THE NEW ARRIVALS</h1>
+    <div className = "mx-80">
+    <FadeInWrapper delay={600}>
+              <h1 className ="font-bold text-[23px]">THE NEW ARRIVALS</h1>
               <h3>Preorder now to receive exclusive deals & gifts</h3>
         </FadeInWrapper>
+    </div>
+    <div className ="grid grid-cols-1 " >
           <AllProduct/>
     </div>
    </div>

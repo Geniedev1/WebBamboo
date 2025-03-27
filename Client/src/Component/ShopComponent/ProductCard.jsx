@@ -44,12 +44,12 @@ export const ProductCard = (props) => {
 
   return (
     <>
-      <li className="group relative bg-white shadow rounded overflow-hidden mx-10">
+      <li className="group relative bg-white  overflow-hidden ">
         <div className="relative overflow-hidden">
           <img
             src={props.img}
             alt={props.name}
-            className="w-full h-auto object-contain"
+            className="w-full h-[400px] object-contain bg-slate-100"
           />
 
           {/* Overlay trượt từ dưới lên */}
@@ -59,6 +59,7 @@ export const ProductCard = (props) => {
               bottom-0 
               left-0 
               w-full 
+              h-24
               bg-black 
               text-white 
               transform 
@@ -72,33 +73,41 @@ export const ProductCard = (props) => {
               justify-between 
               px-4 
               py-3 
-              gap-3 
               text-sm
             "
           >
-            <button onClick={handalCart} className="font-semibold hover:underline">
+            <button onClick={handalCart} className="font-semibold hover:underline text-xl ">
               ADD TO CART
             </button>
-            <button onClick={() => handalClick(props.id)} title="Quick View">
+            <button onClick={() => handalClick(props.id)} title="Quick View" className = "text-2xl">
               <ion-icon name="eye-outline" />
             </button>
-            <button title="Wishlist">
+            <button title="Wishlist" className = "text-2xl">
               <ion-icon name="heart-outline" />
             </button>
-            <button onClick={() => setShowModal(true)} title="Viết bài">
-              <ion-icon name="create-outline" />
+            <button onClick={() => setShowModal(true)} title="Viết bài" className = "text-2xl">
+              <ion-icon name="create-outline"/>
             </button>
           </div>
         </div>
 
-        <div className="p-4 text-center">
-          <h3 className="font-semibold text-gray-800 mb-1">{props.name}</h3>
-          <div className="text-sm text-gray-500">
-            <del className="mr-2">Rs {props.price + 100}</del>
-            <span className="text-black font-medium">Rs {props.price}</span>
+        <div className="p-4 ">
+          <h3 className="font-semibold text-gray-800 mb-1 text-start text-3xl">{props.name}</h3>
+          <div className="text-sm text-gray-500 flex justify-between">
+          <div className = "text-2xl flex">
+             <ion-icon name="star"></ion-icon>
+             <ion-icon name="star"></ion-icon>
+             <ion-icon name="star"></ion-icon>
+            <ion-icon name="star-outline"></ion-icon>
+            <ion-icon name="star-outline"></ion-icon>
           </div>
+          <div className ="flex">
+            <del className="text-2xl">{props.price + 100} VNĐ</del>
+            <span className="text-black text-2xl px-2 font-medium"> {props.price} VNĐ</span>
+          </div>  
         </div>
-      </li>
+      </div>
+    </li>
 
       {showModal && (
         <BlogPostModal
