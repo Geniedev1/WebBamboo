@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import BlogPostModal from "./BlogPostModal";
 import { showToast } from "./toast";
+import FadeInWrapper from "../FadeInWrapper";
 export const ProductCard = (props) => {
   const navigate = useNavigate();
   const [token] = useState(sessionStorage.getItem("token"));
@@ -44,7 +45,8 @@ export const ProductCard = (props) => {
 
   return (
     <>
-      <li className="group relative bg-white  overflow-hidden ">
+    <FadeInWrapper key={props.id} delay={props.id *30}>
+    <li className="group relative bg-white  overflow-hidden ">
         <div className="relative overflow-hidden">
           <img
             src={props.img}
@@ -108,6 +110,8 @@ export const ProductCard = (props) => {
         </div>
       </div>
     </li>
+    </FadeInWrapper>
+     
 
       {showModal && (
         <BlogPostModal

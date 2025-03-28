@@ -43,8 +43,8 @@ export const AllProduct = () => {
         {data.length > 0 ? (
           data.map((item) => (
            <FadeInWrapper key={item.id} delay={item.id *30}>
-            <div>
-            <ProductCard
+            
+               <ProductCard
               key={item.id}
               id={item.id}
               name={item.name}
@@ -52,7 +52,7 @@ export const AllProduct = () => {
               price={parseFloat(item.price)}
               img={item.image_url}
             />
-            </div>
+            
             </FadeInWrapper>
           ))
         ) : (

@@ -278,80 +278,82 @@ const BlogContent = () => {
   };
 
   return (
-    <div className="w-full md:w-3/4 space-y-6">
-      {posts.map((post) => (
-        <article key={post.id} className="bg-white rounded-lg overflow-hidden shadow">
-          <img
-            src={post.product.image_url || "https://via.placeholder.com/800x350"}
-            alt={post.product.name}
-            className="w-full h-[400px] object-cover  bg-mint"
-          />
-          <div className="p-6">
-            <div className="text-gray-500 text-sm mb-4">
-              <span className="mr-4">POSTED BY: {post.author_username}</span>
-              <span>ON: {new Date(post.created_at).toLocaleDateString()}</span>
-            </div>
-            <h1 className="text-2xl font-bold mb-4">{post.title}</h1>
-            <div className="text-gray-600 leading-relaxed mb-4">
-              <p>{post.content}</p>
-            </div>
-            <div className="text-xl text-gray-500 mb-2">
-              <p className = "flex">
-                <strong>Sản phẩm:</strong> {post.product.name} – 
-                <span className="text-green-600 font-semibold">{post.product.price} VND</span>
-              </p>
-            </div>
-            <div className="flex space-x-4 items-center mb-2  justify-between px-24 mt-8">
-              <button
-                className="text-gray-700 hover:underline  text-3xl flex"
-                onClick={() => handleLike(post.id)}
-              >
-                👍 ({post.like_count}) 
-              </button>
-              <button
-                className="text-gray-700 hover:underline font-semibold"
-                onClick={() => toggleComments(post.id)}
-              >
-                💬 Bình luận
-              </button>
-              <button
-                className="text-gray-700 hover:underline font-semibold"
-                onClick={() => handleShare(post.id)}
-              >
-                🔁 Share ({post.share_count})
-              </button>
-            </div>
-
-            {expandedPostId === post.id && (
-              <div className="mt-4 border-t pt-4 space-y-2">
-                <h4 className="text-lg font-semibold">Bình luận:</h4>
-                {(comments[post.id] || []).map((comment) => (
-                  <div key={comment.id} className="border-b pb-2">
-                    <p className="font-semibold">{comment.user_username}</p>
-                    <p className="text-gray-700">{comment.content}</p>
-                  </div>
-                ))}
-                <textarea
-                  className="w-full border rounded p-2 mt-2"
-                  rows="2"
-                  placeholder="Viết bình luận..."
-                  value={newComment[post.id] || ""}
-                  onChange={(e) =>
-                    setNewComment(prev => ({ ...prev, [post.id]: e.target.value }))
-                  }
-                />
-                <button
-                  className="mt-2 px-4 py-2 bg-green-600 text-white rounded hover:bg-green-300"
-                  onClick={() => handleCommentSubmit(post.id)}
-                >
-                  Gửi bình luận
-                </button>
-              </div>
-            )}
+    <FadeInWrapper delay={posts.map((_, index) => index * 220)}>
+      <div className="w-full md:w-3/4 space-y-6">
+    {posts.map((post) => (
+      <article key={post.id} className="bg-white rounded-lg overflow-hidden shadow">
+        <img
+          src={post.product.image_url || "https://via.placeholder.com/800x350"}
+          alt={post.product.name}
+          className="w-full h-[400px] object-cover  bg-mint"
+        />
+        <div className="p-6">
+          <div className="text-gray-500 text-sm mb-4">
+            <span className="mr-4">POSTED BY: {post.author_username}</span>
+            <span>ON: {new Date(post.created_at).toLocaleDateString()}</span>
           </div>
-        </article>
-      ))}
-    </div>
+          <h1 className="text-2xl font-bold mb-4">{post.title}</h1>
+          <div className="text-gray-600 leading-relaxed mb-4">
+            <p>{post.content}</p>
+          </div>
+          <div className="text-xl text-gray-500 mb-2">
+            <p className = "flex">
+              <strong>Sản phẩm:</strong> {post.product.name} – 
+              <span className="text-green-600 font-semibold">{post.product.price} VND</span>
+            </p>
+          </div>
+          <div className="flex space-x-4 items-center mb-2  justify-between px-24 mt-8">
+            <button
+              className="text-gray-700 hover:underline  text-3xl flex"
+              onClick={() => handleLike(post.id)}
+            >
+              👍 ({post.like_count}) 
+            </button>
+            <button
+              className="text-gray-700 hover:underline font-semibold"
+              onClick={() => toggleComments(post.id)}
+            >
+              💬 Bình luận
+            </button>
+            <button
+              className="text-gray-700 hover:underline font-semibold"
+              onClick={() => handleShare(post.id)}
+            >
+              🔁 Share ({post.share_count})
+            </button>
+          </div>
+
+          {expandedPostId === post.id && (
+            <div className="mt-4 border-t pt-4 space-y-2">
+              <h4 className="text-lg font-semibold">Bình luận:</h4>
+              {(comments[post.id] || []).map((comment) => (
+                <div key={comment.id} className="border-b pb-2">
+                  <p className="font-semibold">{comment.user_username}</p>
+                  <p className="text-gray-700">{comment.content}</p>
+                </div>
+              ))}
+              <textarea
+                className="w-full border rounded p-2 mt-2"
+                rows="2"
+                placeholder="Viết bình luận..."
+                value={newComment[post.id] || ""}
+                onChange={(e) =>
+                  setNewComment(prev => ({ ...prev, [post.id]: e.target.value }))
+                }
+              />
+              <button
+                className="mt-2 px-4 py-2 bg-green-600 text-white rounded hover:bg-green-300"
+                onClick={() => handleCommentSubmit(post.id)}
+              >
+                Gửi bình luận
+              </button>
+            </div>
+          )}
+        </div>
+      </article>
+    ))}
+  </div>
+  </FadeInWrapper>
   );
 };
 

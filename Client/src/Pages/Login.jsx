@@ -83,11 +83,22 @@ export const Login = () => {
           {/* LOGIN FORM */}
           <div className="w-[900px] flex items-center justify-end p-32 bg-green-50 ">
             <form onSubmit={handleLogin} className="w-full max-w-md space-y-4">
+              <FadeInWrapper delay={1000}>
               <h2 className="text-4xl font-bold">Login</h2>
+              </FadeInWrapper>
+              <FadeInWrapper delay={1200}>
               <input type="text" name="username" placeholder="Username or Email" value={formData.username} onChange={handleChange} required className="w-full p-2 rounded bg-gray-200" />
-              <input type="password" name="password" placeholder="Password" value={formData.password} onChange={handleChange} required className="w-full p-2 rounded bg-gray-200" />
-              <button type="submit" className="w-full py-2 bg-green-500 hover:bg-green-700 rounded text-white">Login</button>
-              <p className="text-center text-gray-600">Don’t have an account? <span onClick={() => setIsSignup(true)} className="text-green-500 cursor-pointer hover:underline">Sign Up</span></p>
+              </FadeInWrapper>
+             <FadeInWrapper delay={1400}>
+             <input type="password" name="password" placeholder="Password" value={formData.password} onChange={handleChange} required className="w-full p-2 rounded bg-gray-200" />
+             </FadeInWrapper>
+             <FadeInWrapper delay={1600}>
+             <button type="submit" className="w-full py-2 bg-green-500 hover:bg-green-700 rounded text-white">Login</button>
+             </FadeInWrapper>
+             <FadeInWrapper delay={1800}>
+             <p className="text-center text-gray-600">Don’t have an account? <span onClick={() => setIsSignup(true)} className="text-green-500 cursor-pointer hover:underline">Sign Up</span></p>
+
+             </FadeInWrapper>
             </form>
           </div>
 
