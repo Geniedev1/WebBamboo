@@ -1,5 +1,6 @@
 // FadeInWrapper.jsx
 import React, { useRef, useEffect, useState } from "react";
+import { cloneElement } from "react";
 
 const FadeInWrapper = ({ children, delay = 0 }) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -29,16 +30,14 @@ const FadeInWrapper = ({ children, delay = 0 }) => {
     };
   }, [delay]);
 
-  return (
-    <div
-      ref={domRef}
-      className={`transition-all duration-700 ease-out transform ${
-        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"
-      }`}
-    >
-      {children}
-    </div>
-  );
+  return React.isValidElement(children)
+    ? cloneElement(children, {
+        className: `${children.props.className || ""} transition-all duration-700 ease-out transform ${
+          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"
+        }`,
+        ref: domRef,
+      })
+    : <div ref={domRef}> {children} </div>;
 };
 
 export default FadeInWrapper;

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
 import { showToast } from '../Component/ShopComponent/toast';
+import FadeInWrapper from '../Component/FadeInWrapper';
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -74,12 +75,13 @@ export const Login = () => {
   };
 
   return (
-    <div className="flex h-screen w-screen items-center justify-center bg-white overflow-hidden">
+    <FadeInWrapper delay={400}>
+      <div className="flex h-screen w-screen items-center justify-center bg-mint overflow-hidden">
       <div className="relative w-[900px] h-[500px] bg-mint rounded-3xl shadow-xl overflow-hidden ring-1 ring-gray-200">
         <div className={`flex w-[1800px] h-full transition-transform duration-700 ease-in-out ${isSignup ? "-translate-x-1/2" : "translate-x-0"}`}>
           
           {/* LOGIN FORM */}
-          <div className="w-[900px] flex items-center justify-end p-32 bg-mint ">
+          <div className="w-[900px] flex items-center justify-end p-32 bg-green-50 ">
             <form onSubmit={handleLogin} className="w-full max-w-md space-y-4">
               <h2 className="text-4xl font-bold">Login</h2>
               <input type="text" name="username" placeholder="Username or Email" value={formData.username} onChange={handleChange} required className="w-full p-2 rounded bg-gray-200" />
@@ -104,15 +106,18 @@ export const Login = () => {
         </div>
 
         {/* BACKGROUND IMAGE */}
-        <div className={`absolute top-0 left-0 w-1/2 h-full bg-cover bg-center transition-transform duration-700 ease-in-out ${isSignup ? "translate-x-full" : "translate-x-0"}`} style={{ backgroundImage: "url('https://phunugioi.com/wp-content/uploads/2021/11/hinh-anh-chill-anime-cute.jpg')" }}>
+      <FadeInWrapper delay={800}>
+      <div className={`absolute top-0 left-0 w-1/2 h-full bg-cover bg-center transition-transform duration-700 ease-in-out  ${isSignup ? "translate-x-full" : "translate-x-0"}`} style={{ backgroundImage: "url('https://phunugioi.com/wp-content/uploads/2021/11/hinh-anh-chill-anime-cute.jpg')" }}>
           <div className="bg-green-200 bg-opacity-10 w-full h-full flex flex-col justify-between p-8">
             <h1 className="text-2xl font-bold">AMU</h1>
             <p className="text-4xl tracking-wider font-bold text-yellow-800 mb-10">Welcome!</p>
             <button onClick={() => navigate("/")} className="self-end text-sm text-yellow-800 hover:underline bg-slate-50 bg-opacity-30 rounded-3xl p-4">← Back to website</button>
           </div>
         </div>
+      </FadeInWrapper>
       </div>
     </div>
+    </FadeInWrapper>
   );
 };
 

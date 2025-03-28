@@ -4,6 +4,7 @@ import  {Header } from '../Component/Header';
 import { Footer } from "../Component/Footer";
 import { showToast } from '../Component/ShopComponent/toast';
 import { toast } from 'react-toastify';
+import FadeInWrapper from '../Component/FadeInWrapper';
 export const Blog = () => {
   return (
     <div className="bg-gray-50 text-gray-800 min-h-screen">
@@ -283,7 +284,7 @@ const BlogContent = () => {
           <img
             src={post.product.image_url || "https://via.placeholder.com/800x350"}
             alt={post.product.name}
-            className="w-full h-[400px] object-cover  bg-orange-50"
+            className="w-full h-[400px] object-cover  bg-mint"
           />
           <div className="p-6">
             <div className="text-gray-500 text-sm mb-4">

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { ProductCard } from "../ShopComponent/ProductCard";
+import FadeInWrapper from "../FadeInWrapper";
 
 export const ListProduct = () => {
   const [products, setProducts] = useState([]);
@@ -93,7 +94,9 @@ export const ListProduct = () => {
         gap-20">
         {filteredProducts.length > 0 ? (
           filteredProducts.map((product) => (
-            <ProductCard
+            <FadeInWrapper key={product.id} delay={product.id * 30}>
+              <div>
+              <ProductCard
               key={product.id}
               id={product.id}
               name={product.name}
@@ -101,6 +104,8 @@ export const ListProduct = () => {
               img={product.image_url}
               description={product.description}
             />
+              </div>
+            </FadeInWrapper>
           ))
         ) : (
           <p className="col-span-full text-center text-gray-500">
