@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Header } from '../Component/Header';
 import { Footer } from '../Component/Footer';
-
+import { showToast } from '../Component/ShopComponent/toast';
 export const Contact = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -30,10 +30,10 @@ export const Contact = () => {
 
       const data = await res.json();
       if (res.ok) {
-        alert("Đã gửi liên hệ!");
+       showToast("Send Sucess", "success");
         setFormData({ name: "", email: "", subject: "", message: "" });
       } else {
-        alert(data.error || "Lỗi khi gửi liên hệ.");
+        showToast("Send Failed You need Login to Send", "error");
       }
     } catch (err) {
       console.error(err);

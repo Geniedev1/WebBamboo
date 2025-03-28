@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { ProductCard } from "../ShopComponent/ProductCard";
 import axiosFetch from "../../Helper/Axios";
+import FadeInWrapper from "../FadeInWrapper";
 
 export const AllProduct = () => {
   const [data, setData] = useState([]);
@@ -41,7 +42,8 @@ export const AllProduct = () => {
       ">
         {data.length > 0 ? (
           data.map((item) => (
-            <ProductCard
+           <FadeInWrapper key={item.id} delay={item.id *30}>
+             <ProductCard
               key={item.id}
               id={item.id}
               name={item.name}
@@ -49,6 +51,7 @@ export const AllProduct = () => {
               price={parseFloat(item.price)}
               img={item.image_url}
             />
+            </FadeInWrapper>
           ))
         ) : (
           <p className="col-span-full text-center text-gray-500">

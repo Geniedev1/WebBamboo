@@ -1,129 +1,113 @@
 import React, { useEffect, useState } from "react";
 import { ProductCard } from "../ShopComponent/ProductCard";
-import axiosFetch from "../../Helper/Axios";
 
 export const ListProduct = () => {
-  const [token, setToken] = useState(sessionStorage.getItem("token"));
-  const [data, setData] = useState([]);
+  const [products, setProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState("all");
 
-  const fetchData = async () => {
-    try {
-      const response = await axiosFetch({
-        url: "api/products/products/",
-        method: "GET",
-      });
-
-      console.log("API Response:", response);
-
-      if (response?.data && Array.isArray(response.data)) {
-        setData(response.data);
-      } else {
-        setData([]); // Nếu dữ liệu không hợp lệ, set về mảng rỗng
+  // Gọi API lấy tất cả sản phẩm
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const res = await fetch("http://localhost:9090/api/products/products/");
+        const data = await res.json();
+        setProducts(data);
+        setFilteredProducts(data); // mặc định hiển thị tất cả
+      } catch (error) {
+        console.error("Lỗi khi tải sản phẩm:", error);
       }
-    } catch (error) {
-      console.error("Lỗi khi gọi API:", error);
-      setData([]); // Đảm bảo state luôn có giá trị hợp lệ
+    };
+    fetchProducts();
+  }, []);
+
+  // Hàm lọc theo category ID
+  const filterByCategoryId = (categoryId) => {
+    setSelectedCategory(categoryId);
+    if (categoryId === "all") {
+      setFilteredProducts(products);
+    } else {
+      const filtered = products.filter((product) =>
+        product.categories.some((cat) => cat.id === categoryId)
+      );
+      setFilteredProducts(filtered);
     }
   };
 
-  useEffect(() => {
-    fetchData();
-  }, []);
-
   return (
-    <>
-      <section id="products" className="section product">
-        <div className="container">
-          <p className="section-subtitle"> -- Organic Products --</p>
-          <h2 className="h2 section-title">All Organic Products</h2>
-          <ul className="filter-list">
-            <li>
-              <button className="filter-btn active">
-                <img
-                  src="./images/filter-1.png"
-                  width={20}
-                  alt=""
-                  className="default"
-                />
-                <img
-                  src="./images/filter-1-active.png"
-                  width={20}
-                  alt=""
-                  className="color"
-                />
-                <p className="filter-text">Fresh Vegetables</p>
-              </button>
-            </li>
-            <li>
-              <button className="filter-btn">
-                <img
-                  src="./images/filter-2.png"
-                  width={20}
-                  alt=""
-                  className="default"
-                />
-                <img
-                  src="./images/filter-2-active.png"
-                  width={20}
-                  alt=""
-                  className="color"
-                />
-                <p className="filter-text">Fish &amp; Meat</p>
-              </button>
-            </li>
-            <li>
-              <button className="filter-btn">
-                <img
-                  src="./images/filter-3.png"
-                  width={20}
-                  alt=""
-                  className="default"
-                />
-                <img
-                  src="./images/filter-3-active.png"
-                  width={20}
-                  alt=""
-                  className="color"
-                />
-                <p className="filter-text">Healthy Fruit</p>
-              </button>
-            </li>
-            <li>
-              <button className="filter-btn">
-                <img
-                  src="./images/filter-1.png"
-                  width={20}
-                  alt=""
-                  className="default"
-                />
-                <img
-                  src="./images/filter-1-active.png"
-                  width={20}
-                  alt=""
-                  className="color"
-                />
-                <p className="filter-text">Dairy Products</p>
-              </button>
-            </li>
-          </ul>
-          <ul className="grid-list">
-          {data.length > 0 ? (
-    data.map((item) => (
-      <ProductCard
-        key={item.id} // Sửa từ item.productid thành item.id
-        id={item.id}
-        name={item.name} // Sửa từ item.productName thành item.name
-        description={item.description}
-        price={parseFloat(item.price)} // Chuyển price từ string thành số
-        img={item.image_url} // Sửa từ item.img thành item.image_url
-      />
-    ))
-  ) : (
-    <p>No products available</p>
-  )}
-          </ul>
-        </div>
-      </section>
-    </>
+    <section className="py-8 px-4">
+      {/* Nút lọc */}
+      <div className="flex flex-wrap gap-4 justify-center mb-8">
+        <button
+          onClick={() => filterByCategoryId("all")}
+          className={`px-4 py-2 rounded-full border ${
+            selectedCategory === "all" ? "bg-green-600 text-white" : "bg-white text-gray-700"
+          }`}
+        >
+          Tất cả
+        </button>
+        <button
+          onClick={() => filterByCategoryId(1)}
+          className={`px-4 py-2 rounded-full border ${
+            selectedCategory === 1 ? "bg-green-600 text-white" : "bg-white text-gray-700"
+          }`}
+        >
+          Fresh
+        </button>
+        <button
+          onClick={() => filterByCategoryId(2)}
+          className={`px-4 py-2 rounded-full border ${
+            selectedCategory === 2 ? "bg-green-600 text-white" : "bg-white text-gray-700"
+          }`}
+        >
+          Meat
+        </button>
+        <button
+          onClick={() => filterByCategoryId(3)}
+          className={`px-4 py-2 rounded-full border ${
+            selectedCategory === 3 ? "bg-green-600 text-white" : "bg-white text-gray-700"
+          }`}
+        >
+          Health
+        </button>
+        <button
+          onClick={() => filterByCategoryId(4)}
+          className={`px-4 py-2 rounded-full border ${
+            selectedCategory === 4 ? "bg-green-600 text-white" : "bg-white text-gray-700"
+          }`}
+        >
+          Dairy
+        </button>
+      </div>
+
+      {/* Danh sách sản phẩm */}
+      <ul className="
+      grid 
+        grid-cols-1 
+        sm:grid-cols-2 
+        md:grid-cols-3 
+        lg:grid-cols-4 
+        px-4
+        justify-center
+        mx-72
+        gap-20">
+        {filteredProducts.length > 0 ? (
+          filteredProducts.map((product) => (
+            <ProductCard
+              key={product.id}
+              id={product.id}
+              name={product.name}
+              price={parseFloat(product.price)}
+              img={product.image_url}
+              description={product.description}
+            />
+          ))
+        ) : (
+          <p className="col-span-full text-center text-gray-500">
+            Không có sản phẩm nào.
+          </p>
+        )}
+      </ul>
+    </section>
   );
 };

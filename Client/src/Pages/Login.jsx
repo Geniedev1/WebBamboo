@@ -1,53 +1,32 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from "react-router-dom";
-import { Footer } from '../Component/Footer';
-import { Header } from '../Component/Header';
 import { toast } from 'react-toastify';
+import { useNavigate } from "react-router-dom";
+import { showToast } from '../Component/ShopComponent/toast';
 
 export const Login = () => {
   const navigate = useNavigate();
-
-  // Hiển thị thông báo Toast
-  const showToast = (message, type = "error") => {
-    toast[type](message, {
-      position: "top-center",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
-  };
-
-  // Kiểm tra nếu đã đăng nhập thì chuyển hướng
-  useEffect(() => {
-    const token = sessionStorage.getItem("token");
-    if (token) {
-      navigate("/");
-    }
-  }, [navigate]);
-
-  // State lưu trữ thông tin đăng nhập
-  const [user, setUser] = useState({
-    email: "",
-    password: "",
+  const [isSignup, setIsSignup] = useState(false);
+  const [formData, setFormData] = useState({
+    username: '',
+    email: '',
+    password: '',
+    password2: ''
   });
 
-  // Xử lý đăng nhập
+  useEffect(() => {
+    const token = sessionStorage.getItem("token");
+    if (token) navigate("/");
+  }, [navigate]);
+
   const handleLogin = async (e) => {
     e.preventDefault();
-
     try {
       const res = await fetch("http://localhost:9090/api/accounts/login/", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          username: user.email, // Django yêu cầu "username", không phải "email"
-          password: user.password,
+          username: formData.username || formData.email,
+          password: formData.password,
         }),
       });
 
@@ -57,98 +36,84 @@ export const Login = () => {
       }
 
       const data = await res.json();
-      sessionStorage.setItem("token", data.access); // Đúng key token của Django
-
-      showToast("Login Successful!!", "success");
-      navigate("/"); // Chuyển hướng sau khi đăng nhập thành công
+      sessionStorage.setItem("token", data.access);
+      showToast("Login successful!", "success");
+      navigate("/");
     } catch (error) {
-      console.error("Login error:", error.message);
       showToast(error.message);
     }
   };
 
+  const handleSignup = async (e) => {
+    e.preventDefault();
+    if (formData.password !== formData.password2) {
+      return showToast("Passwords do not match!");
+    }
+
+    try {
+      const res = await fetch("http://localhost:9090/api/accounts/register/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+      if (res.status === 201) {
+        showToast("Signup successful!", "success");
+        setTimeout(() => setIsSignup(false), 1000);
+      } else {
+        showToast(data.error || "Signup failed!");
+      }
+    } catch (error) {
+      showToast(error.message);
+    }
+  };
+
+  const handleChange = (e) => {
+    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
   return (
-    <>
-      <Header />
-      <div className="d-flex flex-column justify-content-center" id="login-box">
-        <div className="login-box-header">
-          <h4 style={{ color: "rgb(139,139,139)", marginBottom: 0, fontWeight: 400, fontSize: 27 }}>
-            Login
-          </h4>
-        </div>
-        <div className="login-box-content">
-          <div className="fb-login box-shadow">
-            <a className="d-flex flex-row align-items-center social-login-link" href="#">
-              <i className="fa fa-facebook" style={{ marginLeft: 0, paddingRight: 20, paddingLeft: 22, width: 56 }} />
-              Login with Facebook
-            </a>
+    <div className="flex h-screen w-screen items-center justify-center bg-white overflow-hidden">
+      <div className="relative w-[900px] h-[500px] bg-mint rounded-3xl shadow-xl overflow-hidden ring-1 ring-gray-200">
+        <div className={`flex w-[1800px] h-full transition-transform duration-700 ease-in-out ${isSignup ? "-translate-x-1/2" : "translate-x-0"}`}>
+          
+          {/* LOGIN FORM */}
+          <div className="w-[900px] flex items-center justify-end p-32 bg-mint ">
+            <form onSubmit={handleLogin} className="w-full max-w-md space-y-4">
+              <h2 className="text-4xl font-bold">Login</h2>
+              <input type="text" name="username" placeholder="Username or Email" value={formData.username} onChange={handleChange} required className="w-full p-2 rounded bg-gray-200" />
+              <input type="password" name="password" placeholder="Password" value={formData.password} onChange={handleChange} required className="w-full p-2 rounded bg-gray-200" />
+              <button type="submit" className="w-full py-2 bg-green-500 hover:bg-green-700 rounded text-white">Login</button>
+              <p className="text-center text-gray-600">Don’t have an account? <span onClick={() => setIsSignup(true)} className="text-green-500 cursor-pointer hover:underline">Sign Up</span></p>
+            </form>
           </div>
-          <div className="gp-login box-shadow">
-            <a className="d-flex flex-row align-items-center social-login-link" style={{ marginBottom: 10 }} href="#">
-              <i className="fa fa-google" style={{ color: "rgb(255,255,255)", width: 56 }} />
-              Login with Google+
-            </a>
-          </div>
-        </div>
-        <div className="d-flex flex-row align-items-center login-box-seperator-container">
-          <div className="login-box-seperator" />
-          <div className="login-box-seperator-text">
-            <p style={{ marginBottom: 0, paddingLeft: 10, paddingRight: 10, fontWeight: 400, color: "rgb(201,201,201)" }}>
-              or
-            </p>
-          </div>
-          <div className="login-box-seperator" />
-        </div>
-        <div className="email-login" style={{ backgroundColor: "#ffffff" }}>
-          <input
-            type="email"
-            className="email-imput form-control"
-            style={{ marginTop: 10 }}
-            required
-            placeholder="Email"
-            name="email"
-            onChange={(e) => setUser({ ...user, email: e.target.value })}
-            value={user.email}
-            minLength={6}
-          />
-          <input
-            type="password"
-            className="password-input form-control"
-            style={{ marginTop: 10 }}
-            required
-            placeholder="Password"
-            name="password"
-            onChange={(e) => setUser({ ...user, password: e.target.value })}
-            value={user.password}
-            minLength={6}
-          />
-        </div>
-        <div className="submit-row" style={{ marginBottom: 8, paddingTop: 0 }}>
-          <button
-            className="btn btn-primary d-block box-shadow w-100"
-            id="submit-id-submit"
-            type="submit"
-            onClick={handleLogin}
-          >
-            Login
-          </button>
-          <div className="d-flex justify-content-between">
-            <div className="form-check form-check-inline" id="form-check-rememberMe"></div>
-            <a id="forgot-password-link" href="#">
-              Forgot Password?
-            </a>
+
+          {/* SIGNUP FORM */}
+          <div className="w-[900px] flex items-center justify-start p-32 bg-mint">
+            <form onSubmit={handleSignup} className="w-full max-w-md space-y-4">
+              <h2 className="text-4xl font-bold">Create Account</h2>
+              <input type="text" name="username" placeholder="Username" value={formData.username} onChange={handleChange} required className="w-full p-2 rounded bg-gray-200" />
+              <input type="email" name="email" placeholder="Email" value={formData.email} onChange={handleChange} required className="w-full p-2 rounded bg-gray-200" />
+              <input type="password" name="password" placeholder="Password" value={formData.password} onChange={handleChange} required className="w-full p-2 rounded bg-gray-200" />
+              <input type="password" name="password2" placeholder="Confirm Password" value={formData.password2} onChange={handleChange} required className="w-full p-2 rounded bg-gray-200" />
+              <button type="submit" className="w-full py-2 bg-green-500 hover:bg-green-700 rounded text-white">Sign Up</button>
+              <p className="text-center text-gray-600">Already have an account? <span onClick={() => setIsSignup(false)} className="text-green-500 cursor-pointer hover:underline">Login</span></p>
+            </form>
           </div>
         </div>
-        <div id="login-box-footer" style={{ padding: "10px 20px", paddingBottom: 23, paddingTop: 18 }}>
-          <p style={{ marginBottom: 0 }}>
-            Don't you have an account?
-            <a id="register-link" href="signup">
-              Sign Up!
-            </a>
-          </p>
+
+        {/* BACKGROUND IMAGE */}
+        <div className={`absolute top-0 left-0 w-1/2 h-full bg-cover bg-center transition-transform duration-700 ease-in-out ${isSignup ? "translate-x-full" : "translate-x-0"}`} style={{ backgroundImage: "url('https://phunugioi.com/wp-content/uploads/2021/11/hinh-anh-chill-anime-cute.jpg')" }}>
+          <div className="bg-green-200 bg-opacity-10 w-full h-full flex flex-col justify-between p-8">
+            <h1 className="text-2xl font-bold">AMU</h1>
+            <p className="text-4xl tracking-wider font-bold text-yellow-800 mb-10">Welcome!</p>
+            <button onClick={() => navigate("/")} className="self-end text-sm text-yellow-800 hover:underline bg-slate-50 bg-opacity-30 rounded-3xl p-4">← Back to website</button>
+          </div>
         </div>
       </div>
-      <Footer />
-    </>
+    </div>
   );
 };
+
+export default Login;
