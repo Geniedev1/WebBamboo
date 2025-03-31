@@ -9,6 +9,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     # Django apps
+    'grappelli',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -53,7 +54,7 @@ ROOT_URLCONF = 'organica_django.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],  # Thêm đường dẫn tới thư mục templates nếu cần
+        'DIRS': [BASE_DIR / 'templates'],  # <<< Quan trọng
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

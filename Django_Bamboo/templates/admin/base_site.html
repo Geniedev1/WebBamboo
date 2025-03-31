@@ -1,0 +1,28 @@
+{% extends "admin/base.html" %}
+
+{% block title %}Admin nội thất{% endblock %}
+
+{% block branding %}
+<h1 id="site-name"><a href="{% url 'admin:index' %}">🌿 Quản trị BamBoo Shop</a></h1>
+{% endblock %}
+
+{% block extrahead %}
+    {{ block.super }}
+    <style>
+        body {
+            background-color: #fef9f4;
+        }
+        #header {
+            background-color: #5d4037 !important;
+            color : aquamarine !important;
+        }
+        #site-name a {
+            color: #fff !important;
+            font-weight: bold;
+            font-size: 24px;
+        }
+        .g-d-c {
+            display: flex;
+        }
+    </style>
+{% endblock %}
