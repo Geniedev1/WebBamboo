@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'wishlist',
     'models',
     'blog',
+    'contact',
 ]
 
 MIDDLEWARE = [
@@ -102,3 +103,11 @@ REST_FRAMEWORK = {
 }
 CORS_ALLOW_ALL_ORIGINS = True  # Cho phép tất cả frontend kết nối
 CORS_ALLOW_CREDENTIALS = True
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'minhhoi0606@gmail.com'
+EMAIL_HOST_PASSWORD = 'msxq ogiz pift wggb'  # dùng app password, không dùng mật khẩu thường
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+ADMIN_EMAIL = 'minhhoi0606@gmail.com' # nơi sẽ nhận email

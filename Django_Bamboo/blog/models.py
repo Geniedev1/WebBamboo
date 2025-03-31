@@ -72,6 +72,7 @@ class Share(models.Model):
         related_name='shares'
     )
     shared_at = models.DateTimeField(auto_now_add=True)
-
+    class Meta:
+        unique_together = ('post', 'user')  # 1 user chỉ like 1 post 1 lần
     def __str__(self):
         return f"Share by {self.user.username} on {self.post.title}"
