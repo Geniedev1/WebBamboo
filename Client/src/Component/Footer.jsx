@@ -8,7 +8,7 @@ export const Footer = () => {
       <div className="container">
         <div className="footer-brand">
           <a href="/" className="logo">
-            Organ<span className="span">ica</span>
+            Bam<span className="span">Boo</span>
           </a>
           <p className="footer-text">
             It was popularised in the 1960s with the release of Letraset sheets

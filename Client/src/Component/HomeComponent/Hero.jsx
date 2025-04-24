@@ -11,8 +11,8 @@ export const Hero = () => {
             </FadeInWrapper>
             <FadeInWrapper delay={300}>
             <h2 className="h1 hero-title">
-              Qualityful <span className="span">organic</span>
-              fruit &amp; <span className="span">vegetables.</span>
+              Qualityful <span className="span">Products</span>
+              Interior &amp; <span className="span">Jewelry.</span>
             </h2>
             </FadeInWrapper>
            <FadeInWrapper delay={600}>
@@ -30,7 +30,7 @@ export const Hero = () => {
          <FadeInWrapper delay={1200}>
          <figure className="hero-banner">
             <img
-              src="./images/hero-banner.png"
+              src="./images/Banner.png"
               width={603}
               height={634}
               loading="lazy"

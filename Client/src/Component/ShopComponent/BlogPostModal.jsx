@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-
+import { showToast } from './toast';
 const BlogPostModal = ({ product, onClose }) => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
@@ -17,11 +17,11 @@ const BlogPostModal = ({ product, onClose }) => {
           Authorization: `Bearer ${token}`
         }
       });
-      alert('Đăng bài thành công!');
+      showToast('Đăng bài thành công!','success');
       onClose();
     } catch (error) {
       console.error('Lỗi đăng bài:', error);
-      alert('Đăng bài thất bại');
+      showToast('Đăng bài thất bại','error');
     }
   };
 

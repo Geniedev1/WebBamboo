@@ -92,7 +92,7 @@ export const Home = () => {
     <FadeInWrapper delay={200}>
 
        <div>
-       <img className = "hidden md:block" src="images/Home/banner-style-1-img-1.jpg" alt="" />
+       <img className = "hidden 2xl:block" src="images/Home/banner-style-1-img-1.jpg" alt="" />
         <div className="overlay-text">
           Day La Mau Mot <br />
           <p>
@@ -112,14 +112,14 @@ export const Home = () => {
           <img src="images/Home/banner-style-2-img-1.jpg" alt="" />
           <div className="overlay-text">
            <FadeInWrapper delay={600}>
-            <>
-            Day La Mau Mot <br />
+           <div>
+           Day La Mau Mot2 <br />
             <p>
               <Link to="/">
                 <b>Shop Now</b>
               </Link>
             </p>
-            </>
+           </div>
             </FadeInWrapper>
           </div>
         </>
@@ -128,17 +128,17 @@ export const Home = () => {
 
     <div className="Home_img_text Home_imgs2">
       <FadeInWrapper delay={600}>
-        <>
-          <img src="images/Home/banner-style-2-img-2.jpg" alt="" />
+      <div>
+      <img src="images/Home/banner-style-2-img-2.jpg" alt="" />
           <div className="overlay-text">
-            Day La Mau Mot <br />
+            Day La Mau Mot3 <br />
             <p>
               <Link to="/">
                 <b>Shop Now</b>
               </Link>
             </p>
           </div>
-        </>
+      </div>
       </FadeInWrapper>
     </div>
   </div>
@@ -146,8 +146,9 @@ export const Home = () => {
   <div className="Home_img_4 md:my-0 md:mx-0 my-[30px] mx-0">
     <div className="Home_img_text Home_imgs3">
       <FadeInWrapper delay={1000}>
-        <>
-          <img src="images/Home/banner-style-2-img-3.jpg" alt="" />
+        
+        <div>
+        <img src="images/Home/banner-style-2-img-3.jpg" alt="" />
           <div className="overlay-text">
             Day La Mau 2 <br />
             <p>
@@ -156,14 +157,14 @@ export const Home = () => {
               </Link>
             </p>
           </div>
-        </>
+        </div>
       </FadeInWrapper>
     </div>
 
     <div className="Home_img_text Home_imgs4">
-      <FadeInWrapper delay={1200}>
-        <>
-          <img src="images/Home/banner-style-2-img-4.jpg" alt="" />
+      <FadeInWrapper delay={1000}>
+       <div>
+       <img src="images/Home/banner-style-2-img-4.jpg" alt="" />
           <div className="overlay-text">
             Day La Mau 2 <br />
             <p>
@@ -172,7 +173,7 @@ export const Home = () => {
               </Link>
             </p>
           </div>
-        </>
+        </div>  
       </FadeInWrapper>
     </div>
   </div>
@@ -199,6 +200,11 @@ export const Home = () => {
   {/* 
     - #FOOTER
   */}
+   <div className  = "w-full h-96 m-2 fixed rounded-r-lg bg-sky-500">
+     <div className = "flex justify-end mr-2 w-full bg-lime-600 border-2 rounded-full">
+         <h1 className = "font-bold text-3xl">Chat</h1>
+     </div>
+   </div>
 <Footer/>
   {/* 
     - #BACK TO TOP

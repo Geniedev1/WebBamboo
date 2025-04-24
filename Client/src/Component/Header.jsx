@@ -45,7 +45,7 @@ export const Header = () => {
         <div className="container">
           <h1 className="h1">
             <Link to="/" className="logo">
-              Organ<span className="span">ica</span>
+              Bam<span className="span">Boo</span>
             </Link>
           </h1>
 

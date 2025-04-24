@@ -45,7 +45,7 @@ export const ListProduct = () => {
             selectedCategory === "all" ? "bg-green-600 text-white" : "bg-white text-gray-700"
           }`}
         >
-          Tất cả
+          All 
         </button>
         <button
           onClick={() => filterByCategoryId(1)}
@@ -53,7 +53,7 @@ export const ListProduct = () => {
             selectedCategory === 1 ? "bg-green-600 text-white" : "bg-white text-gray-700"
           }`}
         >
-          Fresh
+          Interior
         </button>
         <button
           onClick={() => filterByCategoryId(2)}
@@ -61,7 +61,7 @@ export const ListProduct = () => {
             selectedCategory === 2 ? "bg-green-600 text-white" : "bg-white text-gray-700"
           }`}
         >
-          Meat
+          Rattan
         </button>
         <button
           onClick={() => filterByCategoryId(3)}

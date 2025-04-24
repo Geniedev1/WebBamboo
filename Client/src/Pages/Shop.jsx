@@ -12,9 +12,7 @@ export const Shop = () => {
     <Header/>
     <div class = "header_hef">
      <div class="header_hef_Shop">
-      <h1>Shop</h1>
-      <br/>
-      <h3>Link</h3>
+     
      </div>
     </div>
     <ListProduct/>

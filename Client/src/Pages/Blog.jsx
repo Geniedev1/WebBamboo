@@ -72,7 +72,7 @@ const MainContent = () => {
 
 const Sidebar = () => {
   return (
-    <div className="w-full md:w-1/4">
+    <div className="w-full md:w-1/4 ">
       <SearchSection />
       <CategoriesSection />
       <TagsSection />
@@ -278,7 +278,7 @@ const BlogContent = () => {
   };
 
   return (
-    <FadeInWrapper delay={posts.map((_, index) => index * 220)}>
+   
       <div className="w-full md:w-3/4 space-y-6">
     {posts.map((post) => (
       <article key={post.id} className="bg-white rounded-lg overflow-hidden shadow">
@@ -353,7 +353,7 @@ const BlogContent = () => {
       </article>
     ))}
   </div>
-  </FadeInWrapper>
+
   );
 };
 

@@ -8,7 +8,6 @@ export const Items = ({ prop ,setLoading}) => {
   const[token,setToken]=useState(sessionStorage.getItem("token"));
   
   const [item2, setItem2] = useState(prop.product);
-
   const onToast = () => {
     toast.success('Item Removed!!', {
       position: "bottom-center",
@@ -104,7 +103,7 @@ export const Items = ({ prop ,setLoading}) => {
                 </a>
               </h5>
               <span className="text-muted font-weight-normal font-italic d-block">
-                Category: Watches
+              Category: {item2.categories.description}
               </span>
             </div>
           </div>

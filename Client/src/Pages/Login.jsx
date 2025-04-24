@@ -96,7 +96,7 @@ export const Login = () => {
              <button type="submit" className="w-full py-2 bg-green-500 hover:bg-green-700 rounded text-white">Login</button>
              </FadeInWrapper>
              <FadeInWrapper delay={1800}>
-             <p className="text-center text-gray-600">Don’t have an account? <span onClick={() => setIsSignup(true)} className="text-green-500 cursor-pointer hover:underline">Sign Up</span></p>
+             <p className="text-end text-gray-600">Don’t have an account? <span onClick={() => setIsSignup(true)} className="text-green-500 cursor-pointer hover:underline">Sign Up</span></p>
 
              </FadeInWrapper>
             </form>

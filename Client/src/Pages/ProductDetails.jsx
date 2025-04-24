@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { Header } from '../Component/Header'
 import { Footer } from '../Component/Footer'
 import { useParams } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import { showToast } from '../Component/ShopComponent/toast'; 
 export const ProductDetails = () => {
   const [data, setData] = useState([]);
@@ -25,18 +24,6 @@ export const ProductDetails = () => {
     if (quantity > 0) {
       setQuantity(quantity + 1);
     }
-  }
-  const onToast = () => {
-    toast.success('Added to cart!', {
-      position: "bottom-center",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
   }
   const handleCart = async () => {
     console.log(quantity);
