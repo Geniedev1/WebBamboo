@@ -1,114 +1,202 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import * as Scroll from "react-scroll";
-
+import axios from "axios";
+// Cuộn trong page
 const LinkScroll = Scroll.Link;
 
 export const Header = () => {
   const navigate = useNavigate();
-  const [scrollPosition, setScrollPosition] = useState(0);
+
+  // trạng thái login
+  const [isLogin, setIsLogin] = useState(sessionStorage.getItem("token"));
+
+  // scroll hide/show header
+  const [scrollPos, setScrollPos] = useState(0);
   const [headerVisible, setHeaderVisible] = useState(true);
 
-  // 👉 Hàm chuyển hướng đến cart hoặc login
-  const handleRedirect = () => {
-    const token = sessionStorage.getItem("token"); // luôn lấy token mới nhất
-    if (token) {
-      navigate("/cart");
+  useEffect(() => {
+    const onScroll = () => {
+      const cur = window.pageYOffset || document.documentElement.scrollTop;
+      setHeaderVisible(cur <= scrollPos);
+      setScrollPos(cur);
+    };
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [scrollPos]);
+
+  // === Search states ===
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [q, setQ] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
+
+
+  // Fetch gợi ý khi q thay đổi
+  useEffect(() => {
+    let cancel;
+    if (q.trim()) {
+      axios
+        .get("http://localhost:9090/api/products/products/", {
+          cancelToken: new axios.CancelToken(c => (cancel = c)),
+        })
+        .then(res => {
+          const names = res.data
+            .map(p => p.name)
+            .filter(n => n.toLowerCase().startsWith(q.toLowerCase()))
+            .slice(0, 5);
+          setSuggestions(names);
+        })
+        .catch(() => {});
     } else {
-      navigate("/login");
+      setSuggestions([]);
+    }
+    return () => cancel && cancel();
+  }, [q]);
+
+  const handleSelect = name => {
+    setSearchOpen(false);
+    setQ("");
+    navigate(`/shop?search=${encodeURIComponent(name)}`);
+  };
+
+  const handleKeyDown = e => {
+    if (e.key === "Enter" && q.trim()) {
+      handleSelect(q.trim());
     }
   };
 
-  // 👉 Hàm đăng xuất
+  // Toggle input search
+  const toggleSearch = () => {
+    setSearchOpen(o => !o);
+    setQ("");
+    setSuggestions([]);
+  };
+
+  // Authentication buttons
+  const handleCart = () =>
+    navigate(isLogin ? "/cart" : "/login");
+  const handleProfile = () =>
+    navigate(isLogin ? "/Profile" : "/login");
   const handleLogout = () => {
     sessionStorage.removeItem("token");
+    setIsLogin(false);
     navigate("/");
   };
 
-  // 👉 Ẩn/hiện header khi scroll
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-      setHeaderVisible(currentScroll < scrollPosition);
-      setScrollPosition(currentScroll);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [scrollPosition]);
-
-  const token = sessionStorage.getItem("token"); // lấy token mỗi lần render
-
   return (
-    <header className={`header ${headerVisible ? "show" : "hide"}`} data-header="">
+    <header className={`header ${headerVisible ? "show" : "hide"}`}>
       <div className="nav-wrapper">
-        <div className="container">
+        <div className="container flex items-center justify-between">
+
+          {/* logo */}
           <h1 className="h1">
             <Link to="/" className="logo">
               Bam<span className="span">Boo</span>
             </Link>
           </h1>
 
-          <button className="nav-open-btn" aria-label="Open Menu" data-nav-open-btn="">
-            <ion-icon name="menu-outline" />
-          </button>
-
-          <nav className="navbar" data-navbar="">
-            <button className="nav-close-btn" aria-label="Close Menu" data-nav-close-btn="">
-              <ion-icon name="close-outline" />
-            </button>
-
-            <ul className="navbar-list">
+          {/* menu */}
+          <nav className="navbar">
+            <ul className="navbar-list flex gap-6">
               <li><Link to="/" className="navbar-link">Home</Link></li>
               <li>
-                <LinkScroll to="contact" smooth="linear" spy offset={-30} className="navbar-link">
-                  About
-                </LinkScroll>
+                <LinkScroll
+                  activeClass="active"
+                  className="navbar-link"
+                  smooth="linear"
+                  spy
+                  to="contact"
+                  offset={-30}
+                >About</LinkScroll>
               </li>
               <li><Link to="/shop" className="navbar-link">Shop</Link></li>
               <li><Link to="/blog" className="navbar-link">Blog</Link></li>
               <li>
-                <LinkScroll to="products" smooth="linear" spy offset={-30} className="navbar-link">
-                  Products
-                </LinkScroll>
+                <LinkScroll
+                  activeClass="active"
+                  className="navbar-link"
+                  smooth="linear"
+                  spy
+                  to="products"
+                  offset={-30}
+                >Products</LinkScroll>
               </li>
               <li><Link to="/contact" className="navbar-link">Contact</Link></li>
             </ul>
           </nav>
 
-          <div className="header-action">
-            <div className="search-wrapper" data-search-wrapper="">
-              <button className="header-action-btn" aria-label="Toggle search" data-search-btn="">
-                <ion-icon name="search-outline" className="search-icon" />
+          {/* header actions */}
+          <div className="header-action flex items-center gap-4 relative">
+            {/* ––– Search ––– */}
+            <div className="relative">
+              <button
+                className="header-action-btn"
+                aria-label="Toggle search"
+                onClick={toggleSearch}
+              >
+                <ion-icon name="search-outline" />
               </button>
-              <div className="input-wrapper">
-                <input type="search" placeholder="Search here" className="search-input" />
-                <button className="search-submit" aria-label="Submit search">
-                  <ion-icon name="search-outline" />
-                </button>
-              </div>
+
+              {searchOpen && (
+                <div className="absolute top-2 right-56 mt-2 w-[700px] bg-white rounded-xl   z-50">
+                  <input
+                    autoFocus
+                    type="text"
+                    value={q}
+                    onChange={e => setQ(e.target.value)}
+                    onKeyDown={handleKeyDown}
+                    className="w-full px-3 py-2 focus:outline-none rounded-xl border border-gray-300"
+                    placeholder="Tìm sản phẩm..."
+                  />
+                  <ul className="max-h-48 overflow-y-auto">
+                    {suggestions.map((name, i) => (
+                      <li
+                        key={i}
+                        onClick={() => handleSelect(name)}
+                        className="px-3 py-2 hover:bg-gray-100 cursor-pointer"
+                      >
+                        {name}
+                      </li>
+                    ))}
+                    {q && suggestions.length === 0 && (
+                      <li className="px-3 py-2 text-gray-500">
+                        Không có kết quả
+                      </li>
+                    )}
+                  </ul>
+                </div>
+              )}
             </div>
 
-            {!token ? (
-              // 🔒 Chưa login → hiện icon người dùng → vào login
-              <button className="header-action-btn" onClick={handleRedirect} aria-label="Login">
-                <ion-icon name="person-circle-outline"></ion-icon>
+            {/* ––– Cart / Login ––– */}
+            {!isLogin ? (
+              <button
+                className="header-action-btn"
+                aria-label="Login"
+                onClick={handleCart}
+              >
+                <ion-icon name="log-in-outline" />
               </button>
             ) : (
               <>
-                {/* ✅ Đã login → icon giỏ hàng → vào cart */}
-                <button className="header-action-btn" onClick={handleRedirect} aria-label="Cart">
+                <button
+                  className="header-action-btn"
+                  aria-label="Cart"
+                  onClick={handleCart}
+                >
                   <ion-icon name="basket-outline" />
-                  <data className="btn-badge" value={2}>02</data>
                 </button>
-
-                {/* 🔓 Nút logout */}
-                <button className="header-action-btn" onClick={handleLogout} aria-label="Logout">
-                  <ion-icon name="log-out-outline"></ion-icon>
+                <button
+                  className="header-action-btn"
+                  aria-label="Profile"
+                  onClick={handleProfile}
+                >
+                  <ion-icon name="person-circle-outline" />
                 </button>
               </>
             )}
           </div>
+
         </div>
       </div>
     </header>

@@ -6,7 +6,7 @@ import { Footer } from '../Component/Footer'
 import { ToastContainer} from 'react-toastify';
 import {Link} from 'react-router-dom';
 import FadeInWrapper from '../Component/FadeInWrapper'
-
+import Chatbot from '../Component/Chatbot'
 export const Home = () => {
   
   useEffect(() => { window.scrollTo(0, 0) 
@@ -180,7 +180,7 @@ export const Home = () => {
 </div>
 </div>
    <div>
-    <div className = "mx-80">
+    <div className = "md:mx-44 mx-32">
     <FadeInWrapper delay={600}>
               <h1 className ="font-bold text-[23px]">THE NEW ARRIVALS</h1>
               <h3>Preorder now to receive exclusive deals & gifts</h3>
@@ -211,7 +211,7 @@ export const Home = () => {
   */}
   <a
     href="#top"
-    className="back-to-top"
+    className="back-to-top mb-24 ml-6"
     aria-label="Back to Top"
     data-back-top-btn=""
   >

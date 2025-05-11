@@ -51,7 +51,7 @@ export const ProductCard = (props) => {
           <img
             src={props.img}
             alt={props.name}
-            className="w-full h-[400px] object-contain bg-slate-100"
+            className="w-full h-[400px] object-cover bg-slate-100"
           />
 
           {/* Overlay trượt từ dưới lên */}
@@ -61,7 +61,7 @@ export const ProductCard = (props) => {
               bottom-0 
               left-0 
               w-full 
-              h-24
+              h-24 
               bg-black 
               text-white 
               transform 

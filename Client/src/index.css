@@ -3044,3 +3044,83 @@ input[type=number] {
   margin-bottom: 50px;
   box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.3);
 }
+.chat-widget {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 300px;
+  border: 1px solid #ccc;
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  font-family: sans-serif;
+}
+
+.chat-box {
+  height: 300px;
+  overflow-y: auto;
+  padding: 10px;
+}
+
+.msg {
+  margin-bottom: 10px;
+}
+
+.msg.user {
+  text-align: right;
+  color: #F1F7EE;
+}
+
+.msg.assistant {
+  text-align: left;
+  color: green;
+}
+
+.chat-input {
+  display: flex;
+  border-top: 1px solid #ccc;
+}
+
+.chat-input input {
+  flex: 1;
+  border: none;
+  padding: 10px;
+}
+
+.chat-input button {
+  border: none;
+  background: #F1F7EE;
+  color: white;
+  padding: 10px 15px;
+}
+/* CSS trong file Bank.css hoặc style trong component */
+.shake-btn {
+  display: inline-block;
+  color: white;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: background-color 0.3s;
+  animation: shake 0.5s infinite; /* Thêm hiệu ứng rung lắc liên tục */
+}
+
+.shake-btn:hover {
+  background-color: #45a049;
+}
+
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-10px); /* Dịch chuyển sang trái */
+  }
+  50% {
+    transform: translateX(10px); /* Dịch chuyển sang phải */
+  }
+  75% {
+    transform: translateX(-10px); /* Dịch chuyển sang trái */
+  }
+  100% {
+    transform: translateX(0); /* Quay lại vị trí ban đầu */
+  }
+}

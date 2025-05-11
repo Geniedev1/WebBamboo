@@ -37,7 +37,7 @@ export const AllProduct = () => {
         lg:grid-cols-4 
         px-4
         justify-center
-        mx-72
+        mx-32 md:mx-40
         gap-20
       ">
         {data.length > 0 ? (

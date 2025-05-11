@@ -3,14 +3,15 @@ import React, { useState } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import axiosFetch from "../../Helper/Axios";
 
+
 export const Items = ({ prop ,setLoading}) => {
   const [quantity, setQuantity] = useState(prop.quantity);
   const[token,setToken]=useState(sessionStorage.getItem("token"));
-  
+ 
   const [item2, setItem2] = useState(prop.product);
   const onToast = () => {
     toast.success('Item Removed!!', {
-      position: "bottom-center",
+      position: "top-center",
       autoClose: 5000,
       hideProgressBar: false,
       closeOnClick: true,
@@ -24,7 +25,7 @@ export const Items = ({ prop ,setLoading}) => {
   const updateQuantity = async (q) => {
  
     const res = await fetch(
-      `http://localhost:9090/cart/addproduct`,
+      `http://localhost:9090/api/orders/cart/add/`,
       {
         method: "POST",
         headers: {
@@ -32,18 +33,20 @@ export const Items = ({ prop ,setLoading}) => {
           "Authorization": "Bearer "+token
         },
         body: JSON.stringify({
-          productId: prop.product.id,
+          product: prop.product.id,
           quantity: q,
         }),
       }
+
 
       );
     const temp= await res.json();
     // console.log(temp);
     setLoading(temp);
-    
+   
     // setQuantity(temp.cartDetalis.quantity);
 };
+
 
   const handleQuantity = (e) => {
     e.preventDefault();
@@ -58,31 +61,42 @@ export const Items = ({ prop ,setLoading}) => {
   };
   const handlePlus = () => {
     if (quantity > 0) {
-      
+     
       setQuantity(quantity + 1);
       updateQuantity(quantity + 1);
     }
   };
-  
-  const handleRemove = async () =>{
-    //call delete api without body
-    const res = await  fetch(
-      `http://localhost:9090/cart/product/${prop.product.productid}`,
-      {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": "Bearer "+token
-        },
-      }
-
+ 
+  const handleRemove = async () => {
+    try {
+      const res = await fetch(
+        `http://localhost:9090/api/orders/cart/item/${prop.id}/`, // nhớ có dấu /
+        {
+          method: "DELETE",
+          headers: {
+            "Authorization": "Bearer " + token,
+          },
+        }
       );
-      const t=await res.json();
-      setLoading(t);
+ 
+      // Nếu response không có nội dung
+      if (res.status === 204) {
+        setLoading(true); // hoặc reload lại giỏ hàng
+        onToast();
+        return;
+      }
+ 
+      const data = await res.json(); // chỉ gọi nếu chắc chắn response là JSON
+      setLoading(data);
       onToast();
+ 
+    } catch (err) {
+      console.error("Xoá sản phẩm thất bại:", err);
+      toast.error("Xoá sản phẩm thất bại!");
+    }
+  };
+ 
 
-    
-  }
 
   return (
     <>
@@ -117,6 +131,7 @@ export const Items = ({ prop ,setLoading}) => {
               -
             </button>
 
+
             {/* <form  className="display-flex"> */}
             <input
               type="text"
@@ -144,3 +159,6 @@ export const Items = ({ prop ,setLoading}) => {
     </>
   );
 };
+
+
+
